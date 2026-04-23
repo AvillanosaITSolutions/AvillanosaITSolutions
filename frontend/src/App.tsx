@@ -45,19 +45,17 @@ const projectItems: ProjectItem[] = [
     },
 ]
 
-const base = import.meta.env.BASE_URL
-
 function getServiceThumbnail(service: string) {
     const value = service.toLowerCase()
 
-    if (value.includes('blog')) return `${base}blog_site.jpg`
-    if (value.includes('consultancy')) return `${base}consultancy.jpg`
-    if (value.includes('enterprise')) return `${base}enterprise_software_development.jpg`
-    if (value.includes('mobile')) return `${base}app_development.jpg`
-    if (value.includes('design') || value.includes('branding')) return `${base}design_and_branding.jpg`
-    if (value.includes('website')) return `${base}web_design.jpg`
+    if (value.includes('blog')) return `/blog_site.jpg`
+    if (value.includes('consultancy')) return `/consultancy.jpg`
+    if (value.includes('enterprise')) return `/enterprise_software_development.jpg`
+    if (value.includes('mobile')) return `/app_development.jpg`
+    if (value.includes('design') || value.includes('branding')) return `/design_and_branding.jpg`
+    if (value.includes('website')) return `/web_design.jpg`
 
-    return `${base}web_design.jpg`
+    return `/web_design.jpg`
 }
 
 function SideSocialRail() {
@@ -118,7 +116,7 @@ function SiteHeader() {
             style={{ backgroundColor: 'transparent' }}
         >
             <NavbarBrand as={Link} href="/" className="gap-2">
-                <img src={`${base}app_logo.png`} alt="Avillanosa IT Solutions logo" className="h-8 w-8 object-contain" />
+                <img src="/app_logo.png" alt="Avillanosa IT Solutions logo" className="h-8 w-8 object-contain" />
                 <span className="self-center whitespace-nowrap text-[22px] font-semibold tracking-tight text-slate-600">ItsAvillanosa</span>
             </NavbarBrand>
 
@@ -252,7 +250,7 @@ function ContactBand() {
                         Unit-A JDN Apartment Bgy Irawan, Puerto Princesa City, Palawan
                     </p>
 
-                    <img src={`${base}bir.png`} alt="BIR registration" className="mt-12 h-auto w-full max-w-[320px] object-contain" />
+                    <img src="/bir.png" alt="BIR registration" className="mt-12 h-auto w-full max-w-[320px] object-contain" />
                 </div>
 
                 <div className="md:col-span-3 md:justify-self-start">
@@ -341,7 +339,7 @@ function AboutPage() {
             {/* Banner image */}
             <div className="site-shell mt-10">
                 <img
-                    src={`${base}consultancy.jpg`}
+                    src="/consultancy.jpg"
                     alt="Avillanosa IT Solutions workspace"
                     className="w-full rounded-sm object-cover"
                     style={{ maxHeight: '400px' }}
