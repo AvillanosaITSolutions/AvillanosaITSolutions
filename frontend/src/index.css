@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+@import "tailwindcss";
+@import "flowbite-react/plugin/tailwindcss";
+
+@theme {
+  --color-sage-50:  #edfff5;
+  --color-sage-100: #d0ffe8;
+  --color-sage-200: #a4ffd4;
+  --color-sage-300: #6bfcb8;
+  --color-sage-400: #2ed573;
+  --color-sage-500: #1db85e;
+  --color-sage-600: #14924a;
+  --color-sage-700: #10723b;
+  --color-sage-800: #0e5a30;
+  --color-sage-900: #0b4525;
+}
+
+::selection {
+  background: #2ed573;
+  color: #ffffff;
+}
+@source "../.flowbite-react/class-list.json";
+
+:root {
+  font-family: 'Space Grotesk', sans-serif;
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: #334155;
+  background: #f7f8fa;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #334155;
+    background: #f7f8fa;
+  }
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.site-shell {
+  width: min(960px, calc(100% - 2.25rem));
+  margin-inline: auto;
+}
+
+.nav-caps ul {
+  align-items: center;
+  gap: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .nav-caps ul {
+    width: 100%;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+  }
+}
+
+.site-header {
+  background: transparent !important;
+}
+
+.site-header > div {
+  background: transparent !important;
+}

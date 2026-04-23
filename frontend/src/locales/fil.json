@@ -1,0 +1,134 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Serbisyo",
+    "solutions": "Solusyon",
+    "work": "Gawa",
+    "about": "Tungkol",
+    "contact": "Kontak"
+  },
+  "language": {
+    "current": "Wika",
+    "english": "Ingles",
+    "filipino": "Filipino"
+  },
+  "home": {
+    "hero": {
+      "caption": "Opisyal na Website ng Negosyo",
+      "title": "Maaasahang Digital Solutions para sa Lumalagong Negosyo sa Pilipinas",
+      "offers": [
+        "Website",
+        "Personal Blog Site",
+        "Consultancy services",
+        "Enterprise Software Development",
+        "Mobile App Development",
+        "Design & Branding Solutions"
+      ],
+      "actions": {
+        "inquireNow": "Mag Inquire Ngayon",
+        "getToKnowUs": "Kilalanin Kami"
+      }
+    },
+    "work": {
+      "title": "Gawa",
+      "items": [
+        {
+          "title": "Retail Operations Suite",
+          "description": "Gumawa ng scalable POS at inventory dashboard para sa multi-branch retailer."
+        },
+        {
+          "title": "School Enrollment Portal",
+          "description": "Naghatid ng online registration at student records system na may reporting."
+        },
+        {
+          "title": "Service Desk Platform",
+          "description": "Nagpatupad ng ticketing at SLA tracker para mapabilis ang tugon."
+        }
+      ]
+    },
+    "clients": {
+      "title": "Feedback ng RentalBasic Users",
+      "items": [
+        {
+          "quote": "Napaka-intuitive at practical ng RentalBasic. Malaking tulong ang supplier search at filters dahil hindi na kailangang isa-isang mag-message ng vendors.",
+          "author": "RentalBasic Early User"
+        },
+        {
+          "quote": "Madaling i-explore ang app, lalo na ang location at filtering features. Malakas ang potential nito para sa tunay na event planning use case.",
+          "author": "RentalBasic Early User"
+        },
+        {
+          "quote": "Maganda ang vendor public website at inventory browsing. Astig at innovative din ang drag-and-drop status updates.",
+          "author": "RentalBasic Early User"
+        },
+        {
+          "quote": "Nakuha ng app ang purpose nito at maayos ang user experience. Strong foundation ang dashboard, themes, real-time chat, at verification features.",
+          "author": "RentalBasic Early User"
+        }
+      ]
+    },
+    "contactFooter": {
+      "title": "Buoin natin ang susunod mong platform",
+      "description": "Ikwento ang iyong goals at magrerekomenda kami ng tamang architecture, timeline, at implementation plan.",
+      "form": {
+        "name": "Pangalan",
+        "email": "Email",
+        "message": "Mensahe",
+        "submit": "Ipadala ang Inquiry"
+      }
+    }
+  },
+  "pages": {
+    "services": { "title": "Serbisyo" },
+    "solutions": { "title": "Solusyon" },
+    "work": { "title": "Gawa" },
+    "about": {
+      "title": "Tungkol",
+      "label": "Tungkol sa Amin",
+      "introLead1": "Hindi lang kami nagtatayo ng mga sistema.",
+      "introLead2": "Inaayos namin ang mga nagpapabagal sa inyo.",
+      "introPara1": "Sa Avillanosa Information Technology Solutions, nakikipagtulungan kami sa mga negosyong pagod na sa mahirap na paraan—manual na proseso, magkakahiwalay na tools, at mga workflow na nasisira pagdating ng paglago.",
+      "introPara2": "Pumasok kami, linisin ang gulo, at nagtatayo ng mga sistema na talagang tumatagal.",
+      "introPara3": "Mula sa internal tools hanggang sa buong platform, iisa lang ang aming pokus: gawing mas maayos, mas mabilis, at mas walang hula ang inyong operasyon.",
+      "introPara4": "Dahil ang magandang tech ay hindi dapat humanga sa inyo—dapat tahimik na gawin ang trabaho nito para maka-focus kayo sa sa inyo.",
+      "whoTitle": "Sino Kami",
+      "who": [
+        { "value": "Taong Itinatag", "label": "Ginawa para sa problema ngayon, hindi kahapon" },
+        { "value": "Koponan", "label": "Maliit, teknikal, at nakatuon sa pagpapatupad" },
+        { "value": "Lokasyon", "label": "Pilipinas" },
+        { "value": "Gawa", "label": "Mula sa custom systems hanggang scalable platforms tulad ng RentalBasic" }
+      ],
+      "thinkTitle": "Paano Namin Iniisip",
+      "think": [
+        { "title": "Kung manual, problema iyon", "description": "Ang pag-uulit ay tanda na dapat i-automate ang isang bagay." },
+        { "title": "Simple ang lumalago, kumplikado ang nasisisira", "description": "Nagdidisenyo kami para sa kalinawan muna, paglago pangalawa." },
+        { "title": "Itayo nang isang beses, gamitin araw-araw", "description": "Ang tunay na halaga ay nagmumula sa mga tools na talagang ginagamit ng tao." },
+        { "title": "Walang patay na features", "description": "Kung walang layunin, hindi ito itatayo." },
+        { "title": "Mahalaga ang bilis", "description": "Hindi nagmamadali—ngunit hindi rin nakatambay." },
+        { "title": "Resulta higit sa aesthetics", "description": "Magandang UI ay mabuti. Gumaganang sistema ay mas mabuti." }
+      ],
+      "whyTitle": "Bakit Kami Nandito",
+      "whyLead": "Dahil masyadong maraming negosyo ang nagpapatakbo gamit ang spreadsheet, chat threads, at pag-asa.",
+      "whySub": "Pinapalitan namin iyon ng mga sistema na mapagkakatiwalaan."
+    },
+    "contact": {
+      "title": "Kontak",
+      "label": "Makipag-ugnayan",
+      "heroTitle": "Nandito kami para makinig.",
+      "subTitle": "Tulungan namin kayong linawin ang inyong mga ideya habang pinag-uusapan ang inyong proyekto. Punan ang mga detalye sa ibaba at sasagutin ng aming koponan ang inyong mga tanong.",
+      "budgets": ["Wala pang ₱50,000", "₱50,000 – ₱150,000", "₱150,000 – ₱500,000", "₱500,000+", "Hindi pa sigurado"],
+      "form": {
+        "name": "Pangalan",
+        "email": "Email",
+        "contactNo": "Numero ng Kontak",
+        "budget": "Badyet",
+        "message": "Paano namin matutulungan?",
+        "notRobot": "Hindi ako robot",
+        "submit": "Isumite"
+      }
+    }
+  },
+  "footer": {
+    "copyright": "Avillanosa IT Solutions"
+  }
+}

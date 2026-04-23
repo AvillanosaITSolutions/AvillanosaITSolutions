@@ -1,0 +1,134 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "solutions": "Solutions",
+    "work": "Work",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "language": {
+    "current": "Language",
+    "english": "English",
+    "filipino": "Filipino"
+  },
+  "home": {
+    "hero": {
+      "caption": "Official Business Website",
+      "title": "Goodbye spreadsheets, hello systems.",
+      "offers": [
+        "Website",
+        "Personal Blog Site",
+        "Consultancy",
+        "Enterprise Software Development",
+        "Mobile App Development",
+        "Design & Branding Solutions"
+      ],
+      "actions": {
+        "inquireNow": "Inquire Now",
+        "getToKnowUs": "Get to Know Us"
+      }
+    },
+    "work": {
+      "title": "Work",
+      "items": [
+        {
+          "title": "Retail Operations Suite",
+          "description": "Built a scalable POS + inventory dashboard for a multi-branch retailer."
+        },
+        {
+          "title": "School Enrollment Portal",
+          "description": "Delivered an online registration and student records system with reporting."
+        },
+        {
+          "title": "Service Desk Platform",
+          "description": "Implemented a ticketing and SLA tracker to improve response times."
+        }
+      ]
+    },
+    "clients": {
+      "title": "RentalBasic User Feedback",
+      "items": [
+        {
+          "quote": "RentalBasic is very intuitive and practical. The supplier search and filtering flow saved us from contacting vendors one by one.",
+          "author": "RentalBasic Early User"
+        },
+        {
+          "quote": "The app is cool and easy to explore, especially the location and filtering features. It already feels promising and useful for real event planning.",
+          "author": "RentalBasic Early User"
+        },
+        {
+          "quote": "The vendor public website and inventory browsing are excellent. The drag-and-drop status updates are neat and genuinely innovative.",
+          "author": "RentalBasic Early User"
+        },
+        {
+          "quote": "It served its purpose and the user experience was smooth. Dashboard, themes, real-time chat, and verification features are all strong foundations.",
+          "author": "RentalBasic Early User"
+        }
+      ]
+    },
+    "contactFooter": {
+      "title": "Let us build your next platform",
+      "description": "Tell us your goals and we will recommend the right architecture, timeline, and implementation plan.",
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "message": "Message",
+        "submit": "Send Inquiry"
+      }
+    }
+  },
+  "pages": {
+    "services": { "title": "Services" },
+    "solutions": { "title": "Solutions" },
+    "work": { "title": "Work" },
+    "about": {
+      "title": "About",
+      "label": "About Us",
+      "introLead1": "We don't just build systems.",
+      "introLead2": "We fix the ones slowing you down.",
+      "introPara1": "At Avillanosa Information Technology Solutions, we work with businesses that are tired of doing things the hard way—manual processes, scattered tools, and workflows that break the moment you scale.",
+      "introPara2": "We step in, clean it up, and build systems that actually hold.",
+      "introPara3": "From internal tools to full platforms, we focus on one thing: making your operations run smoother, faster, and with less guesswork.",
+      "introPara4": "Because good tech shouldn't impress you—it should quietly do its job so you can focus on yours.",
+      "whoTitle": "Who We Are",
+      "who": [
+        { "value": "Year Founded", "label": "Built for today's problems, not yesterday's standards" },
+        { "value": "Team", "label": "Lean, technical, and execution-driven" },
+        { "value": "Location", "label": "Philippines" },
+        { "value": "Work", "label": "From custom systems to scalable platforms like RentalBasic" }
+      ],
+      "thinkTitle": "How We Think",
+      "think": [
+        { "title": "If it's manual, it's a problem", "description": "Repetition is a sign something should be automated." },
+        { "title": "Simple scales, complex breaks", "description": "We design for clarity first, growth second." },
+        { "title": "Build once, use daily", "description": "Real value comes from tools people actually rely on." },
+        { "title": "No dead features", "description": "If it doesn't serve a purpose, it doesn't get built." },
+        { "title": "Speed matters", "description": "Not rushed—but never stagnant." },
+        { "title": "Results over aesthetics", "description": "Nice UI is good. Working systems are better." }
+      ],
+      "whyTitle": "Why We Exist",
+      "whyLead": "Because too many businesses are running on spreadsheets, chat threads, and hope.",
+      "whySub": "We replace that with systems you can trust."
+    },
+    "contact": {
+      "title": "Contact",
+      "label": "Get in Touch",
+      "heroTitle": "We're here to listen.",
+      "subTitle": "Let us help you refine creative ideas as we talk about your project or brief. Enter your details below and let our friendly team answer your questions.",
+      "budgets": ["Under ₱50,000", "₱50,000 – ₱150,000", "₱150,000 – ₱500,000", "₱500,000+", "Not sure yet"],
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "contactNo": "Contact No.",
+        "budget": "Budget",
+        "message": "How can we help?",
+        "notRobot": "I'm not a robot",
+        "submit": "Submit"
+      }
+    }
+  },
+  "footer": {
+    "copyright": "Avillanosa IT Solutions"
+  }
+}
