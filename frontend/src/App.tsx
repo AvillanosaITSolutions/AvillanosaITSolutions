@@ -7,7 +7,7 @@ import {
     NavbarCollapse,
     NavbarToggle,
 } from 'flowbite-react'
-import { ArrowRightAlt, Facebook, Instagram, Linkedin, Twitter } from 'flowbite-react-icons/solid'
+import { ArrowRightAlt, Facebook, Linkedin } from 'flowbite-react-icons/solid'
 import { motion } from 'framer-motion'
 import { type ChangeEvent, type FormEvent, type ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -84,15 +84,14 @@ function getServiceThumbnail(service: string) {
 
 function SideSocialRail() {
     return (
-        <aside className="fixed left-7 top-[28%] z-20 hidden lg:flex lg:flex-col lg:items-center lg:gap-4">
-            <span className="rotate-180 text-[10px] font-semibold uppercase tracking-[0.28em] text-slate-400 [writing-mode:vertical-lr]">
+        <aside className="fixed left-8 top-[28%] z-20 hidden lg:flex lg:flex-col lg:items-center lg:gap-5">
+            <span className="rotate-180 text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-400 [writing-mode:vertical-lr]">
                 Follow Us
             </span>
-            <span className="h-12 w-px bg-sage-300" />
-            <div className="flex flex-col items-center gap-3 text-slate-500">
-                <a href="#" aria-label="Instagram" className="hover:text-sage-700"><Instagram size={14} /></a>
-                <a href="#" aria-label="Facebook" className="hover:text-sage-700"><Facebook size={14} /></a>
-                <a href="#" aria-label="LinkedIn" className="hover:text-sage-700"><Linkedin size={14} /></a>
+            <span className="h-14 w-px bg-sage-300" />
+            <div className="flex flex-col items-center gap-4 text-slate-500">
+                <a href="https://www.facebook.com/profile.php?id=61565257933229" target="_blank" rel="noreferrer" aria-label="Facebook" className="hover:text-sage-700"><Facebook size={26} /></a>
+                <a href="https://www.linkedin.com/company/avillanosa-information-technology-solutions" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-sage-700"><Linkedin size={26} /></a>
             </div>
         </aside>
     )
@@ -322,10 +321,8 @@ function ContactBand() {
                     <div className="md:col-span-3 md:justify-self-start">
                         <p className="text-xs text-slate-400">Follow</p>
                         <div className="mt-5 flex items-center gap-6 text-2xl text-slate-700">
-                            <a href="#" aria-label="Facebook" className="hover:text-sage-700"><Facebook size={24} /></a>
-                            <a href="#" aria-label="Twitter" className="hover:text-sage-700"><Twitter size={24} /></a>
-                            <a href="#" aria-label="Instagram" className="hover:text-sage-700"><Instagram size={24} /></a>
-                            <a href="#" aria-label="LinkedIn" className="hover:text-sage-700"><Linkedin size={24} /></a>
+                            <a href="https://www.facebook.com/profile.php?id=61565257933229" target="_blank" rel="noreferrer" aria-label="Facebook" className="hover:text-sage-700"><Facebook size={24} /></a>
+                            <a href="https://www.linkedin.com/company/avillanosa-information-technology-solutions" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-sage-700"><Linkedin size={24} /></a>
                         </div>
 
                         <Button color="light" className="mt-14 w-full rounded-none border-0 !bg-sage-400 !text-white px-10 py-3 text-sm font-bold uppercase tracking-[0.16em] hover:!bg-sage-500 md:w-[300px]">
