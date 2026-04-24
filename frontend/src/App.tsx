@@ -7,7 +7,7 @@ import {
     NavbarCollapse,
     NavbarToggle,
 } from 'flowbite-react'
-import { ArrowRightAlt, Facebook, Linkedin } from 'flowbite-react-icons/solid'
+import { ArrowRightAlt, Facebook, Github, Linkedin } from 'flowbite-react-icons/solid'
 import { motion } from 'framer-motion'
 import { type ChangeEvent, type FormEvent, type ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -51,6 +51,15 @@ const projectItems: ProjectItem[] = [
         url: 'https://rentalbasic.com',
         isCurrent: true,
     },
+    {
+        slug: 'gx-rose-prints',
+        name: 'GX ROSE PRINTS website',
+        category: 'Client Website - Personalized Prints & Souvenirs',
+        summary: 'Personalized prints and souvenirs for birthdays, weddings, school activities, business branding, and giveaways.',
+        accentClass: 'from-rose-100 to-amber-50',
+        thumbnail: '/gxrose_logo.jpg',
+        url: 'https://gxroseprints.com',
+    },
 ]
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -92,6 +101,7 @@ function SideSocialRail() {
             <div className="flex flex-col items-center gap-4 text-slate-500">
                 <a href="https://www.facebook.com/profile.php?id=61565257933229" target="_blank" rel="noreferrer" aria-label="Facebook" className="hover:text-sage-700"><Facebook size={26} /></a>
                 <a href="https://www.linkedin.com/company/avillanosa-information-technology-solutions" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-sage-700"><Linkedin size={26} /></a>
+                <a href="https://github.com/AvillanosaITSolutions" target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:text-sage-700"><Github size={26} /></a>
             </div>
         </aside>
     )
@@ -323,6 +333,7 @@ function ContactBand() {
                         <div className="mt-5 flex items-center gap-6 text-2xl text-slate-700">
                             <a href="https://www.facebook.com/profile.php?id=61565257933229" target="_blank" rel="noreferrer" aria-label="Facebook" className="hover:text-sage-700"><Facebook size={24} /></a>
                             <a href="https://www.linkedin.com/company/avillanosa-information-technology-solutions" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-sage-700"><Linkedin size={24} /></a>
+                            <a href="https://github.com/AvillanosaITSolutions" target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:text-sage-700"><Github size={24} /></a>
                         </div>
 
                         <Button color="light" className="mt-14 w-full rounded-none border-0 !bg-sage-400 !text-white px-10 py-3 text-sm font-bold uppercase tracking-[0.16em] hover:!bg-sage-500 md:w-[300px]">
