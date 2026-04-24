@@ -8,6 +8,8 @@ import {
     NavbarToggle,
 } from 'flowbite-react'
 import { Facebook, Instagram, Linkedin, Twitter } from 'flowbite-react-icons/solid'
+import { motion } from 'framer-motion'
+import { type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Route, Routes, useLocation } from 'react-router-dom'
 
@@ -44,6 +46,19 @@ const projectItems: ProjectItem[] = [
         isCurrent: true,
     },
 ]
+
+function FadeInOnView({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
+        >
+            {children}
+        </motion.div>
+    )
+}
 
 function getServiceThumbnail(service: string) {
     const value = service.toLowerCase()
@@ -142,7 +157,8 @@ function HeroSection() {
     const offers = t('home.hero.offers', { returnObjects: true }) as string[]
 
     return (
-        <section className="site-shell pt-20">
+        <FadeInOnView>
+            <section className="site-shell pt-20">
             <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-[1.12] tracking-tight text-sage-900 md:text-6xl">{t('home.hero.title')}</h1>
             <p className="mt-4 max-w-2xl text-sm text-slate-500">We craft clear, reliable digital products to elevate your brand and core operations.</p>
 
@@ -162,7 +178,8 @@ function HeroSection() {
                     {t('home.hero.actions.getToKnowUs')}
                 </Button>
             </div>
-        </section>
+            </section>
+        </FadeInOnView>
     )
 }
 
@@ -170,15 +187,22 @@ function WorkSection() {
     const { t } = useTranslation()
 
     return (
-        <section className="site-shell mt-28">
+        <FadeInOnView>
+            <section className="site-shell mt-28">
             <div className="mb-10 flex items-center gap-4">
                 <span className="h-px w-14 bg-sage-500" />
                 <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-700">{t('home.work.title')}</h2>
             </div>
 
             <div className="grid gap-x-5 gap-y-10 md:grid-cols-3">
-                {projectItems.map((item) => (
-                    <article key={item.name}>
+                {projectItems.map((item, index) => (
+                    <motion.article
+                        key={item.name}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.45, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    >
                         {item.thumbnail ? (
                             <img
                                 src={item.thumbnail}
@@ -201,10 +225,11 @@ function WorkSection() {
                             <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.16em] text-sage-700">Current Project</p>
                         )}
                         <p className="mt-1 text-xs text-slate-500">{item.category}</p>
-                    </article>
+                    </motion.article>
                 ))}
             </div>
-        </section>
+            </section>
+        </FadeInOnView>
     )
 }
 
@@ -213,18 +238,27 @@ function ClientsWordsSection() {
     const testimonials = t('home.clients.items', { returnObjects: true }) as Array<{ quote: string; author: string }>
 
     return (
-        <section className="site-shell mt-24">
+        <FadeInOnView>
+            <section className="site-shell mt-24">
             <h2 className="text-4xl font-bold tracking-tight text-slate-900">{t('home.clients.title')}</h2>
 
             <div className="mt-10 grid gap-10 md:grid-cols-2">
-                {testimonials.map((item) => (
-                    <article key={item.author} className="rounded-sm border border-slate-200 bg-white p-8">
+                {testimonials.map((item, index) => (
+                    <motion.article
+                        key={`${item.author}-${index}`}
+                        className="rounded-sm border border-slate-200 bg-white p-8"
+                        initial={{ opacity: 0, y: 22 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.45, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    >
                         <p className="text-sm leading-7 text-slate-600">{item.quote}</p>
                         <p className="mt-6 text-sm font-semibold text-slate-900">{item.author}</p>
-                    </article>
+                    </motion.article>
                 ))}
             </div>
-        </section>
+            </section>
+        </FadeInOnView>
     )
 }
 
@@ -232,7 +266,8 @@ function ContactBand() {
     const { t } = useTranslation()
 
     return (
-        <section className="site-shell mt-24 border-t border-slate-200 pt-20">
+        <FadeInOnView>
+            <section className="site-shell mt-24 border-t border-slate-200 pt-20">
             <div className="grid gap-x-6 gap-y-16 md:grid-cols-12">
                 <div className="min-w-0 md:col-span-4">
                     <p className="text-xs text-slate-400">Email</p>
@@ -267,7 +302,8 @@ function ContactBand() {
                     </Button>
                 </div>
             </div>
-        </section>
+            </section>
+        </FadeInOnView>
     )
 }
 
@@ -284,10 +320,12 @@ function HomePage() {
 
 function GenericPage({ title }: { title: string }) {
     return (
-        <section className="site-shell py-28">
-            <h1 className="text-5xl font-bold tracking-tight text-slate-900">{title}</h1>
-            <p className="mt-4 max-w-2xl text-slate-600">This section is styled and ready for your complete business content.</p>
-        </section>
+        <FadeInOnView>
+            <section className="site-shell py-28">
+                <h1 className="text-5xl font-bold tracking-tight text-slate-900">{title}</h1>
+                <p className="mt-4 max-w-2xl text-slate-600">This section is styled and ready for your complete business content.</p>
+            </section>
+        </FadeInOnView>
     )
 }
 
@@ -296,13 +334,21 @@ function ServicesPage() {
     const offers = t('home.hero.offers', { returnObjects: true }) as string[]
 
     return (
-        <section className="site-shell py-24">
+        <FadeInOnView>
+            <section className="site-shell py-24">
             <h1 className="text-5xl font-bold tracking-tight text-slate-900">{t('pages.services.title')}</h1>
             <p className="mt-4 max-w-3xl text-slate-600">Explore our core service offerings built to help businesses launch, grow, and operate efficiently.</p>
 
             <div className="mt-12 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-                {offers.map((service) => (
-                    <article key={service} className="overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm">
+                {offers.map((service, index) => (
+                    <motion.article
+                        key={service}
+                        className="overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.45, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                    >
                         <img
                             src={getServiceThumbnail(service)}
                             alt={`${service} service`}
@@ -311,10 +357,11 @@ function ServicesPage() {
                         <div className="p-4">
                             <h2 className="text-base font-semibold text-slate-800">{service}</h2>
                         </div>
-                    </article>
+                    </motion.article>
                 ))}
             </div>
-        </section>
+            </section>
+        </FadeInOnView>
     )
 }
 
@@ -326,7 +373,8 @@ function AboutPage() {
     return (
         <div className="py-20">
             {/* Hero */}
-            <div className="site-shell">
+            <FadeInOnView>
+                <div className="site-shell">
                 <div className="mb-8 flex items-center gap-4">
                     <span className="h-px w-14 bg-sage-500" />
                     <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-700">{t('pages.about.label')}</span>
@@ -334,28 +382,34 @@ function AboutPage() {
                 <h1 className="max-w-3xl text-[clamp(2.2rem,5vw,3.6rem)] font-bold leading-[1.08] tracking-tight text-slate-900">
                     {t('pages.about.introLead1')}<br />{t('pages.about.introLead2')}
                 </h1>
-            </div>
+                </div>
+            </FadeInOnView>
 
             {/* Banner image */}
-            <div className="site-shell mt-10">
+            <FadeInOnView delay={0.06}>
+                <div className="site-shell mt-10">
                 <img
                     src="/consultancy.jpg"
                     alt="Avillanosa IT Solutions workspace"
                     className="w-full rounded-sm object-cover"
                     style={{ maxHeight: '400px' }}
                 />
-            </div>
+                </div>
+            </FadeInOnView>
 
             {/* Intro paragraphs */}
-            <div className="site-shell mt-12 max-w-3xl space-y-5 text-sm leading-8 text-slate-600">
+            <FadeInOnView delay={0.1}>
+                <div className="site-shell mt-12 max-w-3xl space-y-5 text-sm leading-8 text-slate-600">
                 <p>{t('pages.about.introPara1')}</p>
                 <p className="font-medium text-slate-800">{t('pages.about.introPara2')}</p>
                 <p>{t('pages.about.introPara3')}</p>
                 <p className="italic text-slate-500">{t('pages.about.introPara4')}</p>
-            </div>
+                </div>
+            </FadeInOnView>
 
             {/* Who We Are */}
-            <div className="site-shell mt-20">
+            <FadeInOnView>
+                <div className="site-shell mt-20">
                 <div className="mb-10 flex items-center gap-4">
                     <span className="h-px w-14 bg-sage-500" />
                     <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-700">{t('pages.about.whoTitle')}</span>
@@ -368,34 +422,45 @@ function AboutPage() {
                         </div>
                     ))}
                 </div>
-            </div>
+                </div>
+            </FadeInOnView>
 
             {/* How We Think */}
-            <div className="site-shell mt-20">
+            <FadeInOnView>
+                <div className="site-shell mt-20">
                 <div className="mb-10 flex items-center gap-4">
                     <span className="h-px w-14 bg-sage-500" />
                     <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-700">{t('pages.about.thinkTitle')}</span>
                 </div>
                 <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
                     {think.map((item, index) => (
-                        <article key={item.title}>
+                        <motion.article
+                            key={item.title}
+                            initial={{ opacity: 0, y: 18 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.35 }}
+                            transition={{ duration: 0.42, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                        >
                             <p className="text-[11px] font-bold tracking-[0.14em] text-slate-400">{String(index + 1).padStart(2, '0')} —</p>
                             <h3 className="mt-2 text-[16px] font-bold leading-snug text-sage-700">{item.title}</h3>
                             <p className="mt-1 text-xs leading-6 text-slate-500">{item.description}</p>
-                        </article>
+                        </motion.article>
                     ))}
                 </div>
-            </div>
+                </div>
+            </FadeInOnView>
 
             {/* Why We Exist */}
-            <div className="site-shell mt-20 border-t border-slate-100 pt-14">
+            <FadeInOnView>
+                <div className="site-shell mt-20 border-t border-slate-100 pt-14">
                 <div className="mb-6 flex items-center gap-4">
                     <span className="h-px w-14 bg-sage-500" />
                     <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-700">{t('pages.about.whyTitle')}</span>
                 </div>
                 <p className="max-w-2xl text-2xl font-medium leading-snug text-slate-800">{t('pages.about.whyLead')}</p>
                 <p className="mt-4 text-base font-semibold text-sage-700">{t('pages.about.whySub')}</p>
-            </div>
+                </div>
+            </FadeInOnView>
         </div>
     )
 }
@@ -406,7 +471,8 @@ function ContactPage() {
 
     return (
         <div className="py-20">
-            <div className="site-shell">
+            <FadeInOnView>
+                <div className="site-shell">
                 <div className="mb-8 flex items-center gap-4">
                     <span className="h-px w-14 bg-sage-500" />
                     <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-700">{t('pages.contact.label')}</span>
@@ -473,7 +539,8 @@ function ContactPage() {
                         {t('pages.contact.form.submit')}
                     </button>
                 </form>
-            </div>
+                </div>
+            </FadeInOnView>
         </div>
     )
 }
