@@ -361,23 +361,23 @@ function ServicesPage() {
 
                 <div className="mt-12 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
                     {offers.map((service, index) => (
-                        <motion.article
+                        <article
                             key={service}
                             className="overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.3 }}
-                            transition={{ duration: 0.45, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                            style={{ animationDelay: `${index * 60}ms` }}
                         >
                             <img
                                 src={getServiceThumbnail(service)}
                                 alt={`${service} service`}
+                                loading="lazy"
+                                width={480}
+                                height={300}
                                 className="aspect-[16/10] w-full object-cover"
                             />
                             <div className="p-4">
                                 <h2 className="text-base font-semibold text-slate-800">{service}</h2>
                             </div>
-                        </motion.article>
+                        </article>
                     ))}
                 </div>
             </section>
@@ -836,7 +836,7 @@ function AppFooter() {
 
 function App() {
     return (
-        <div className="flex min-h-screen flex-col">
+        <div className="relative flex min-h-screen flex-col">
             <SiteHeader />
             <main className="flex-1">
                 <Routes>
