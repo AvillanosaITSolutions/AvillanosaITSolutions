@@ -7,11 +7,11 @@ import {
     NavbarCollapse,
     NavbarToggle,
 } from 'flowbite-react'
-import { Facebook, Instagram, Linkedin, Twitter } from 'flowbite-react-icons/solid'
+import { ArrowRightAlt, Facebook, Instagram, Linkedin, Twitter } from 'flowbite-react-icons/solid'
 import { motion } from 'framer-motion'
 import { type ChangeEvent, type FormEvent, type ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, Route, Routes, useLocation } from 'react-router-dom'
+import { Link, Route, Routes, useLocation, useParams } from 'react-router-dom'
 
 type RouteConfig = {
     path: string
@@ -19,8 +19,10 @@ type RouteConfig = {
 }
 
 type ProjectItem = {
+    slug: string
     name: string
     category: string
+    summary: string
     accentClass: string
     thumbnail?: string
     url?: string
@@ -38,8 +40,10 @@ const routeConfig: RouteConfig[] = [
 
 const projectItems: ProjectItem[] = [
     {
+        slug: 'rentalbasic',
         name: 'RentalBasic',
         category: 'Currently Building - Rental Platform',
+        summary: 'An event supplier and rental operations platform focused on matching, inventory visibility, and real-time workflows.',
         accentClass: 'from-sage-200 to-teal-100',
         thumbnail: '/rentalbasic.svg',
         url: 'https://rentalbasic.com',
@@ -228,6 +232,28 @@ function WorkSection() {
                                 <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.16em] text-sage-700">Current Project</p>
                             )}
                             <p className="mt-1 text-xs text-slate-500">{item.category}</p>
+                            <p className="mt-2 text-xs leading-6 text-slate-500">{item.summary}</p>
+
+                            <div className="mt-4 flex flex-wrap gap-2">
+                                {item.url && (
+                                    <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex">
+                                        <Button color="light" size="xs" className="rounded-none border border-slate-200 !text-slate-700">
+                                            <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
+                                                <ArrowRightAlt size={14} />
+                                                Website
+                                            </span>
+                                        </Button>
+                                    </a>
+                                )}
+                                <Link to={`/work/${item.slug}`} className="inline-flex">
+                                    <Button color="light" size="xs" className="rounded-none border border-slate-200 !text-slate-700">
+                                        <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
+                                            <ArrowRightAlt size={14} />
+                                            Details
+                                        </span>
+                                    </Button>
+                                </Link>
+                            </div>
                         </motion.article>
                     ))}
                 </div>
@@ -362,6 +388,118 @@ function ServicesPage() {
                             </div>
                         </motion.article>
                     ))}
+                </div>
+            </section>
+        </FadeInOnView>
+    )
+}
+
+function SolutionsPage() {
+    return (
+        <FadeInOnView>
+            <section className="site-shell py-24">
+                <h1 className="text-5xl font-bold tracking-tight text-slate-900">Solutions</h1>
+                <p className="mt-4 max-w-3xl text-slate-600">Products and platforms we are building to solve real operational problems.</p>
+
+                <div className="mt-12 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+                    {projectItems.map((item) => (
+                        <article key={item.slug} className="overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm">
+                            {item.thumbnail ? (
+                                <img src={item.thumbnail} alt={`${item.name} solution`} className="aspect-[16/10] w-full object-cover" />
+                            ) : (
+                                <div className={`aspect-[16/10] w-full bg-gradient-to-br ${item.accentClass}`} />
+                            )}
+
+                            <div className="p-4">
+                                <h2 className="text-base font-semibold text-slate-800">{item.name}</h2>
+                                <p className="mt-1 text-xs text-slate-500">{item.category}</p>
+                                <p className="mt-2 text-xs leading-6 text-slate-500">{item.summary}</p>
+
+                                <div className="mt-4 flex flex-wrap gap-2">
+                                    {item.url && (
+                                        <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex">
+                                            <Button color="light" size="xs" className="rounded-none border border-slate-200 !text-slate-700">
+                                                <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
+                                                    <ArrowRightAlt size={14} />
+                                                    Website
+                                                </span>
+                                            </Button>
+                                        </a>
+                                    )}
+                                    <Link to={`/work/${item.slug}`} className="inline-flex">
+                                        <Button color="light" size="xs" className="rounded-none border border-slate-200 !text-slate-700">
+                                            <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
+                                                <ArrowRightAlt size={14} />
+                                                Details
+                                            </span>
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </article>
+                    ))}
+                </div>
+            </section>
+        </FadeInOnView>
+    )
+}
+
+function ProjectDetailsPage() {
+    const { projectSlug } = useParams<{ projectSlug: string }>()
+    const project = projectItems.find((item) => item.slug === projectSlug)
+
+    if (!project) {
+        return (
+            <FadeInOnView>
+                <section className="site-shell py-24">
+                    <h1 className="text-4xl font-bold tracking-tight text-slate-900">Project not found</h1>
+                    <p className="mt-4 text-slate-600">The project page you are looking for does not exist yet.</p>
+                    <Link to="/work" className="mt-6 inline-flex">
+                        <Button color="light" className="rounded-none border border-slate-200 !text-slate-700">
+                            <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
+                                <ArrowRightAlt size={14} />
+                                Back to Work
+                            </span>
+                        </Button>
+                    </Link>
+                </section>
+            </FadeInOnView>
+        )
+    }
+
+    return (
+        <FadeInOnView>
+            <section className="site-shell py-24">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">Project Details</p>
+                <h1 className="mt-2 text-5xl font-bold tracking-tight text-slate-900">{project.name}</h1>
+                <p className="mt-4 max-w-3xl text-slate-600">{project.summary}</p>
+                <p className="mt-3 text-sm font-medium text-sage-700">{project.category}</p>
+
+                {project.thumbnail ? (
+                    <img src={project.thumbnail} alt={`${project.name} preview`} className="mt-8 w-full max-w-4xl rounded-sm border border-slate-200 object-cover" />
+                ) : (
+                    <div className={`mt-8 h-64 w-full max-w-4xl rounded-sm bg-gradient-to-br ${project.accentClass}`} />
+                )}
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                    {project.url && (
+                        <a href={project.url} target="_blank" rel="noreferrer" className="inline-flex">
+                            <Button color="light" className="rounded-none border border-slate-200 !text-slate-700">
+                                <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
+                                    <ArrowRightAlt size={16} />
+                                    Visit Website
+                                </span>
+                            </Button>
+                        </a>
+                    )}
+                    <Link to="/work" className="inline-flex">
+                        <Button color="light" className="rounded-none border border-slate-200 !text-slate-700">
+                            <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
+                                <ArrowRightAlt size={16} />
+                                Back to Work
+                            </span>
+                        </Button>
+                    </Link>
                 </div>
             </section>
         </FadeInOnView>
@@ -667,8 +805,9 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/services" element={<ServicesPage />} />
-                    <Route path="/solutions" element={<GenericPage title={t('pages.solutions.title')} />} />
+                    <Route path="/solutions" element={<SolutionsPage />} />
                     <Route path="/work" element={<GenericPage title={t('pages.work.title')} />} />
+                    <Route path="/work/:projectSlug" element={<ProjectDetailsPage />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/contact" element={<ContactPage />} />
                 </Routes>
