@@ -307,7 +307,7 @@ function ContactBand() {
                         </p>
 
                         <p className="mt-10 text-xs text-slate-400">Contact No.</p>
-                        <p className="mt-3 text-2xl leading-tight font-medium tracking-tight text-slate-800 md:text-[30px]">09452873791</p>
+                        <p className="mt-3 text-2xl leading-tight font-medium tracking-tight text-slate-800 md:text-[30px]">(+63) 945 287 3791</p>
                     </div>
 
                     <div className="min-w-0 md:col-span-5">
