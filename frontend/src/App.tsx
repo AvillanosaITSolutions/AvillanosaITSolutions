@@ -24,6 +24,7 @@ type ProjectItem = {
     category: string
     summary: string
     accentClass: string
+    type: 'work' | 'solution'
     thumbnail?: string
     gallery?: string[]
     url?: string
@@ -46,6 +47,7 @@ const projectItems: ProjectItem[] = [
         category: 'Currently Building - Rental Platform',
         summary: 'An event supplier and rental operations platform focused on matching, inventory visibility, and real-time workflows.',
         accentClass: 'from-sage-200 to-teal-100',
+        type: 'solution',
         thumbnail: '/rentalbasic.svg',
         gallery: ['/rentalbasic_website.png', '/rentalbasic.gif'],
         url: 'https://rentalbasic.com',
@@ -57,8 +59,18 @@ const projectItems: ProjectItem[] = [
         category: 'Client Website - Personalized Prints & Souvenirs',
         summary: 'Personalized prints and souvenirs for birthdays, weddings, school activities, business branding, and giveaways.',
         accentClass: 'from-rose-100 to-amber-50',
+        type: 'work',
         thumbnail: '/gxrose_logo.jpg',
         url: 'https://gxroseprints.com',
+    },
+    {
+        slug: 'rockys-cafe',
+        name: "Rocky's Cafe",
+        category: 'Coffee Shop & Event Catering',
+        summary: 'A warm neighborhood cafe with bold flavors. Coffee, comfort food, and event catering in one cozy place.',
+        accentClass: 'from-amber-100 to-orange-100',
+        type: 'work',
+        url: 'https://avillanosaitsolutions.github.io/rockyscafe9/',
     },
 ]
 
@@ -203,6 +215,7 @@ function HeroSection() {
 
 function WorkSection() {
     const { t } = useTranslation()
+    const workItems = projectItems.filter((item) => item.type === 'work')
 
     return (
         <FadeInOnView>
@@ -213,7 +226,7 @@ function WorkSection() {
                 </div>
 
                 <div className="grid gap-x-5 gap-y-10 md:grid-cols-3">
-                    {projectItems.map((item, index) => (
+                    {workItems.map((item, index) => (
                         <motion.article
                             key={item.name}
                             initial={{ opacity: 0, y: 20 }}
@@ -394,6 +407,7 @@ function ServicesPage() {
 }
 
 function SolutionsPage() {
+    const solutionItems = projectItems.filter((item) => item.type === 'solution')
     return (
         <FadeInOnView>
             <section className="site-shell py-24">
@@ -401,7 +415,7 @@ function SolutionsPage() {
                 <p className="mt-4 max-w-3xl text-slate-600">Products and platforms we are building to solve real operational problems.</p>
 
                 <div className="mt-12 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-                    {projectItems.map((item) => (
+                    {solutionItems.map((item) => (
                         <article key={item.slug} className="overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm">
                             {item.thumbnail ? (
                                 <img src={item.thumbnail} alt={`${item.name} solution`} className="aspect-[16/10] w-full object-cover" />
