@@ -25,6 +25,7 @@ type ProjectItem = {
     summary: string
     accentClass: string
     thumbnail?: string
+    gallery?: string[]
     url?: string
     isCurrent?: boolean
 }
@@ -46,6 +47,7 @@ const projectItems: ProjectItem[] = [
         summary: 'An event supplier and rental operations platform focused on matching, inventory visibility, and real-time workflows.',
         accentClass: 'from-sage-200 to-teal-100',
         thumbnail: '/rentalbasic.svg',
+        gallery: ['/rentalbasic_website.png', '/rentalbasic.gif'],
         url: 'https://rentalbasic.com',
         isCurrent: true,
     },
@@ -436,6 +438,7 @@ function SolutionsPage() {
 function ProjectDetailsPage() {
     const { projectSlug } = useParams<{ projectSlug: string }>()
     const project = projectItems.find((item) => item.slug === projectSlug)
+    const [lightboxSrc, setLightboxSrc] = useState<string | null>(null)
 
     if (!project) {
         return (
@@ -464,10 +467,57 @@ function ProjectDetailsPage() {
                 <p className="mt-4 max-w-3xl text-slate-600">{project.summary}</p>
                 <p className="mt-3 text-sm font-medium text-sage-700">{project.category}</p>
 
-                {project.thumbnail ? (
+                {project.gallery && project.gallery.length > 0 ? (
+                    <div className="mt-8 max-w-3xl">
+                        {project.thumbnail && (
+                            <img src={project.thumbnail} alt={`${project.name} logo`} className="mb-6 h-12 w-auto object-contain" />
+                        )}
+                        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                            {project.gallery.map((src, i) => (
+                                <motion.button
+                                    key={src}
+                                    onClick={() => setLightboxSrc(src)}
+                                    initial={{ opacity: 0, y: 18 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                                    className="group overflow-hidden rounded-sm border border-slate-200 shadow-sm cursor-zoom-in"
+                                >
+                                    <img
+                                        src={src}
+                                        alt={`${project.name} preview ${i + 1}`}
+                                        className="aspect-[4/3] w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                    />
+                                </motion.button>
+                            ))}
+                        </div>
+                    </div>
+                ) : project.thumbnail ? (
                     <img src={project.thumbnail} alt={`${project.name} preview`} className="mt-8 w-full max-w-4xl rounded-sm border border-slate-200 object-cover" />
                 ) : (
                     <div className={`mt-8 h-64 w-full max-w-4xl rounded-sm bg-gradient-to-br ${project.accentClass}`} />
+                )}
+
+                {/* Lightbox */}
+                {lightboxSrc && (
+                    <div
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+                        onClick={() => setLightboxSrc(null)}
+                    >
+                        <button
+                            className="absolute top-4 right-4 text-white text-3xl leading-none hover:opacity-70"
+                            onClick={() => setLightboxSrc(null)}
+                            aria-label="Close"
+                        >
+                            ✕
+                        </button>
+                        <img
+                            src={lightboxSrc}
+                            alt="Full view"
+                            className="max-h-[90vh] max-w-[90vw] rounded-sm object-contain shadow-2xl"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    </div>
                 )}
 
                 <div className="mt-8 flex flex-wrap gap-3">
