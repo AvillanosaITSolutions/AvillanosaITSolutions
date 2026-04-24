@@ -237,7 +237,7 @@ function WorkSection() {
                             <div className="mt-4 flex flex-wrap gap-2">
                                 {item.url && (
                                     <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex">
-                                        <Button color="light" size="xs" className="rounded-none border border-slate-200 !text-slate-700">
+                                        <Button color="light" size="xs" className="rounded-none border border-slate-200 !bg-white !text-slate-700">
                                             <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
                                                 <ArrowRightAlt size={14} />
                                                 Website
@@ -246,7 +246,7 @@ function WorkSection() {
                                     </a>
                                 )}
                                 <Link to={`/work/${item.slug}`} className="inline-flex">
-                                    <Button color="light" size="xs" className="rounded-none border border-slate-200 !text-slate-700">
+                                    <Button color="light" size="xs" className="rounded-none border border-slate-200 !bg-white !text-slate-700">
                                         <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
                                             <ArrowRightAlt size={14} />
                                             Details
@@ -347,17 +347,6 @@ function HomePage() {
     )
 }
 
-function GenericPage({ title }: { title: string }) {
-    return (
-        <FadeInOnView>
-            <section className="site-shell py-28">
-                <h1 className="text-5xl font-bold tracking-tight text-slate-900">{title}</h1>
-                <p className="mt-4 max-w-2xl text-slate-600">This section is styled and ready for your complete business content.</p>
-            </section>
-        </FadeInOnView>
-    )
-}
-
 function ServicesPage() {
     const { t } = useTranslation()
     const offers = t('home.hero.offers', { returnObjects: true }) as string[]
@@ -418,7 +407,7 @@ function SolutionsPage() {
                                 <div className="mt-4 flex flex-wrap gap-2">
                                     {item.url && (
                                         <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex">
-                                            <Button color="light" size="xs" className="rounded-none border border-slate-200 !text-slate-700">
+                                            <Button color="light" size="xs" className="rounded-none border border-slate-200 !bg-white !text-slate-700">
                                                 <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
                                                     <ArrowRightAlt size={14} />
                                                     Website
@@ -427,7 +416,7 @@ function SolutionsPage() {
                                         </a>
                                     )}
                                     <Link to={`/work/${item.slug}`} className="inline-flex">
-                                        <Button color="light" size="xs" className="rounded-none border border-slate-200 !text-slate-700">
+                                        <Button color="light" size="xs" className="rounded-none border border-slate-200 !bg-white !text-slate-700">
                                             <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
                                                 <ArrowRightAlt size={14} />
                                                 Details
@@ -455,7 +444,7 @@ function ProjectDetailsPage() {
                     <h1 className="text-4xl font-bold tracking-tight text-slate-900">Project not found</h1>
                     <p className="mt-4 text-slate-600">The project page you are looking for does not exist yet.</p>
                     <Link to="/work" className="mt-6 inline-flex">
-                        <Button color="light" className="rounded-none border border-slate-200 !text-slate-700">
+                        <Button color="light" className="rounded-none border border-slate-200 !bg-white !text-slate-700">
                             <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
                                 <ArrowRightAlt size={14} />
                                 Back to Work
@@ -484,7 +473,7 @@ function ProjectDetailsPage() {
                 <div className="mt-8 flex flex-wrap gap-3">
                     {project.url && (
                         <a href={project.url} target="_blank" rel="noreferrer" className="inline-flex">
-                            <Button color="light" className="rounded-none border border-slate-200 !text-slate-700">
+                            <Button color="light" className="rounded-none border border-slate-200 !bg-white !text-slate-700">
                                 <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
                                     <ArrowRightAlt size={16} />
                                     Visit Website
@@ -493,7 +482,7 @@ function ProjectDetailsPage() {
                         </a>
                     )}
                     <Link to="/work" className="inline-flex">
-                        <Button color="light" className="rounded-none border border-slate-200 !text-slate-700">
+                        <Button color="light" className="rounded-none border border-slate-200 !bg-white !text-slate-700">
                             <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
                                 <ArrowRightAlt size={16} />
                                 Back to Work
@@ -796,8 +785,6 @@ function AppFooter() {
 }
 
 function App() {
-    const { t } = useTranslation()
-
     return (
         <div className="flex min-h-screen flex-col">
             <SiteHeader />
@@ -806,7 +793,7 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/solutions" element={<SolutionsPage />} />
-                    <Route path="/work" element={<GenericPage title={t('pages.work.title')} />} />
+                    <Route path="/work" element={<WorkSection />} />
                     <Route path="/work/:projectSlug" element={<ProjectDetailsPage />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/contact" element={<ContactPage />} />
