@@ -477,7 +477,7 @@ function ContactPage() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        contactNo: '09452873791',
+        contactNo: '',
         budget: '',
         message: '',
     })
@@ -548,7 +548,7 @@ function ContactPage() {
             setFormData({
                 name: '',
                 email: '',
-                contactNo: '09452873791',
+                contactNo: '',
                 budget: '',
                 message: '',
             })
