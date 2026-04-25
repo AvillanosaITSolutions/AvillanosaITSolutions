@@ -70,6 +70,7 @@ const projectItems: ProjectItem[] = [
         summary: 'A warm neighborhood cafe with bold flavors. Coffee, comfort food, and event catering in one cozy place.',
         accentClass: 'from-amber-100 to-orange-100',
         type: 'work',
+        thumbnail: '/rockyscafe9.jpg',
         url: 'https://avillanosaitsolutions.github.io/rockyscafe9/',
     },
 ]
