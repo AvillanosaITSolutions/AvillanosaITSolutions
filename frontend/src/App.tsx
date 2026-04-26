@@ -326,7 +326,7 @@ function ContactBand() {
                     <div className="min-w-0 md:col-span-4">
                         <p className="text-xs text-slate-400">Email</p>
                         <p className="mt-3 break-words text-2xl leading-tight font-medium tracking-tight text-slate-800 md:text-[30px]">
-                            careers.kmavillanosa@gmail.com
+                            hello@itsavillanosa.com
                         </p>
 
                         <p className="mt-10 text-xs text-slate-400">Contact No.</p>
@@ -727,7 +727,7 @@ function ContactPage() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    to: 'careers.kmavillanosa@gmail.com',
+                    to: 'hello@itsavillanosa.com',
                     subject: `New Inquiry from ${payload.name}`,
                     html: `<h2>New Contact Inquiry</h2>
 <p><strong>Name:</strong> ${payload.name}</p>
