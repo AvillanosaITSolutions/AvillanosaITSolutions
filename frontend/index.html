@@ -62,7 +62,63 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Avillanosa Information Technology Solutions",
-      "url": "https://itsavillanosa.com"
+      "url": "https://itsavillanosa.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://itsavillanosa.com/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Site Navigation",
+      "itemListElement": [
+        {
+          "@type": "SiteLinksSearchBox",
+          "@id": "https://itsavillanosa.com/#sitelinks"
+        },
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Services",
+          "description": "Web development, mobile apps, enterprise software, consultancy, and branding services.",
+          "url": "https://itsavillanosa.com/services"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Solutions",
+          "description": "Products and platforms we build to solve real operational problems.",
+          "url": "https://itsavillanosa.com/solutions"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Work",
+          "description": "Client projects and case studies.",
+          "url": "https://itsavillanosa.com/work"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "About",
+          "description": "Learn about Avillanosa IT Solutions, our team, and our mission.",
+          "url": "https://itsavillanosa.com/about"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Contact",
+          "description": "Get in touch with us for inquiries and project discussions.",
+          "url": "https://itsavillanosa.com/contact"
+        }
+      ]
     }
     </script>
   </head>
