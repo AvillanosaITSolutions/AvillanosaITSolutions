@@ -136,6 +136,7 @@ function ImageWithSkeleton({
                 src={src}
                 alt={alt}
                 loading={loading}
+                decoding="async"
                 width={width}
                 height={height}
                 className={`${className} transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
