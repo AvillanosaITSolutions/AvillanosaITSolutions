@@ -9,7 +9,7 @@ import {
 } from 'flowbite-react'
 import { ArrowRightAlt, Facebook, Github, Linkedin } from 'flowbite-react-icons/solid'
 import { motion } from 'framer-motion'
-import { type ChangeEvent, type FormEvent, type ReactNode, useState } from 'react'
+import { type ChangeEvent, type FormEvent, type ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Route, Routes, useLocation, useParams } from 'react-router-dom'
 
@@ -104,6 +104,75 @@ function getServiceThumbnail(service: string) {
     return `/web_design.jpg`
 }
 
+function ImageWithSkeleton({
+    src,
+    alt,
+    className,
+    wrapperClassName,
+    loading = 'lazy',
+    onError,
+    width,
+    height,
+}: {
+    src: string
+    alt: string
+    className: string
+    wrapperClassName?: string
+    loading?: 'lazy' | 'eager'
+    onError?: () => void
+    width?: number
+    height?: number
+}) {
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        setIsLoading(true)
+    }, [src])
+
+    return (
+        <div className={`relative overflow-hidden ${wrapperClassName ?? ''}`}>
+            {isLoading && <div className="absolute inset-0 animate-pulse bg-slate-200" aria-hidden="true" />}
+            <img
+                src={src}
+                alt={alt}
+                loading={loading}
+                width={width}
+                height={height}
+                className={`${className} transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+                onLoad={() => setIsLoading(false)}
+                onError={() => {
+                    setIsLoading(false)
+                    onError?.()
+                }}
+            />
+        </div>
+    )
+}
+
+function WorkCardThumbnail({ item }: { item: ProjectItem }) {
+    const imageCandidates = [
+        item.thumbnail,
+        '/app_logo.png',
+    ].filter((candidate): candidate is string => Boolean(candidate))
+
+    const [imageIndex, setImageIndex] = useState(0)
+    const src = imageCandidates[imageIndex]
+
+    if (!src) {
+        return <div className={`aspect-[16/10] w-full rounded-sm bg-gradient-to-br ${item.accentClass} ring-1 ring-slate-200`} />
+    }
+
+    return (
+        <ImageWithSkeleton
+            src={src}
+            alt={`${item.name} thumbnail`}
+            wrapperClassName="aspect-[16/10] w-full rounded-sm ring-1 ring-slate-200"
+            className="h-full w-full rounded-sm object-cover"
+            onError={() => setImageIndex((currentIndex) => currentIndex + 1)}
+        />
+    )
+}
+
 function SideSocialRail() {
     return (
         <aside className="fixed left-8 top-[28%] z-20 hidden lg:flex lg:flex-col lg:items-center lg:gap-5">
@@ -129,15 +198,45 @@ function SiteHeader() {
         return location.pathname.startsWith(path)
     }
 
-    const languageMenu = (
-        <Dropdown label={t('language.current')} inline className="text-slate-700 text-base">
+    const languageItems = (
+        <>
             <DropdownItem className="text-slate-800 hover:bg-sage-50" onClick={() => i18n.changeLanguage('en')}>
                 {t('language.english')}
             </DropdownItem>
             <DropdownItem className="text-slate-800 hover:bg-sage-50" onClick={() => i18n.changeLanguage('fil')}>
                 {t('language.filipino')}
             </DropdownItem>
-        </Dropdown>
+        </>
+    )
+
+    const languageMenu = (
+        <>
+            <div className="hidden md:block">
+                <Dropdown label={t('language.current')} inline className="text-slate-700 text-base">
+                    {languageItems}
+                </Dropdown>
+            </div>
+
+            <div className="md:hidden">
+                <Dropdown
+                    label={(
+                        <span className="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-slate-200 text-slate-600" title={t('language.current')}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M3 12h18" />
+                                <path d="M12 3a14 14 0 0 1 0 18" />
+                                <path d="M12 3a14 14 0 0 0 0 18" />
+                            </svg>
+                        </span>
+                    )}
+                    inline
+                    arrowIcon={false}
+                    className="text-slate-700"
+                >
+                    {languageItems}
+                </Dropdown>
+            </div>
+        </>
     )
 
     const renderNavLinks = () =>
@@ -162,8 +261,11 @@ function SiteHeader() {
             style={{ backgroundColor: 'transparent' }}
         >
             <NavbarBrand as={Link} href="/" className="gap-2">
-                <img src="/app_logo.png" alt="Avillanosa IT Solutions logo" className="h-8 w-8 object-contain" />
-                <span className="self-center whitespace-nowrap text-[22px] font-semibold tracking-tight text-slate-600">ItsAvillanosa</span>
+                <img src="/app_logo.png" alt="Avillanosa IT Solutions logo" className="h-10 w-10 object-contain" />
+                <div className="self-center leading-tight">
+                    <span className="block whitespace-nowrap text-[22px] font-semibold tracking-tight text-slate-600">ItsAvillanosa</span>
+                    <span className="hidden whitespace-nowrap text-[10px] font-medium tracking-[0.08em] uppercase text-slate-400 md:block">Avillanosa Information Technology Solutions</span>
+                </div>
             </NavbarBrand>
 
             <div className="hidden md:flex md:flex-1 md:items-center md:justify-end md:gap-2">
@@ -173,7 +275,7 @@ function SiteHeader() {
 
             <div className="flex items-center gap-2 md:hidden">
                 <div>{languageMenu}</div>
-                <NavbarToggle />
+                <NavbarToggle className="inline-flex h-10 w-10 items-center justify-center rounded-sm p-2 text-slate-600 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300 [&>svg]:h-6 [&>svg]:w-6" />
             </div>
 
             <NavbarCollapse className="nav-caps !bg-transparent md:!hidden">
@@ -235,15 +337,7 @@ function WorkSection() {
                             viewport={{ once: true, amount: 0.3 }}
                             transition={{ duration: 0.45, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                         >
-                            {item.thumbnail ? (
-                                <img
-                                    src={item.thumbnail}
-                                    alt={`${item.name} thumbnail`}
-                                    className="aspect-[16/10] w-full rounded-sm object-cover ring-1 ring-slate-200"
-                                />
-                            ) : (
-                                <div className={`aspect-[16/10] w-full rounded-sm bg-gradient-to-br ${item.accentClass} ring-1 ring-slate-200`} />
-                            )}
+                            <WorkCardThumbnail item={item} />
                             <h3 className="mt-3 text-[14px] font-semibold text-slate-800">
                                 {item.url ? (
                                     <a href={item.url} target="_blank" rel="noreferrer" className="hover:text-sage-700 hover:underline">
@@ -388,13 +482,14 @@ function ServicesPage() {
                             className="overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm"
                             style={{ animationDelay: `${index * 60}ms` }}
                         >
-                            <img
+                            <ImageWithSkeleton
                                 src={getServiceThumbnail(service)}
                                 alt={`${service} service`}
                                 loading="lazy"
                                 width={480}
                                 height={300}
-                                className="aspect-[16/10] w-full object-cover"
+                                wrapperClassName="aspect-[16/10] w-full"
+                                className="h-full w-full object-cover"
                             />
                             <div className="p-4">
                                 <h2 className="text-base font-semibold text-slate-800">{service}</h2>
@@ -419,7 +514,12 @@ function SolutionsPage() {
                     {solutionItems.map((item) => (
                         <article key={item.slug} className="overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm">
                             {item.thumbnail ? (
-                                <img src={item.thumbnail} alt={`${item.name} solution`} className="aspect-[16/10] w-full object-cover" />
+                                <ImageWithSkeleton
+                                    src={item.thumbnail}
+                                    alt={`${item.name} solution`}
+                                    wrapperClassName="aspect-[16/10] w-full"
+                                    className="h-full w-full object-cover"
+                                />
                             ) : (
                                 <div className={`aspect-[16/10] w-full bg-gradient-to-br ${item.accentClass}`} />
                             )}
