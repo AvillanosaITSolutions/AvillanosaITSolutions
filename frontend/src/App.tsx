@@ -9,7 +9,7 @@ import {
 } from 'flowbite-react'
 import { ArrowRightAlt, Facebook, Github, Linkedin } from 'flowbite-react-icons/solid'
 import { motion } from 'framer-motion'
-import { type ChangeEvent, type FormEvent, type ReactNode, useEffect, useState } from 'react'
+import { type ChangeEvent, type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Route, Routes, useLocation, useParams } from 'react-router-dom'
 
@@ -134,15 +134,22 @@ function ImageWithSkeleton({
     height?: number
 }) {
     const [isLoading, setIsLoading] = useState(true)
+    const imgRef = useRef<HTMLImageElement>(null)
 
     useEffect(() => {
-        setIsLoading(true)
+        const img = imgRef.current
+        if (img && img.complete && img.naturalWidth > 0) {
+            setIsLoading(false)
+        } else {
+            setIsLoading(true)
+        }
     }, [src])
 
     return (
         <div className={`relative overflow-hidden ${wrapperClassName ?? ''}`}>
             {isLoading && <div className="absolute inset-0 animate-pulse bg-slate-200" aria-hidden="true" />}
             <img
+                ref={imgRef}
                 src={src}
                 alt={alt}
                 loading={loading}
