@@ -73,6 +73,16 @@ const projectItems: ProjectItem[] = [
         thumbnail: '/rockyscafe9.jpg',
         url: 'https://avillanosaitsolutions.github.io/rockyscafe9/',
     },
+    {
+        slug: 'coralwind-expeditions',
+        name: 'CoralWind Expeditions',
+        category: 'Client Website - Tourism & Travel',
+        summary: 'Authentic bangka boat expeditions through the pristine waters of Coron, Palawan — island hopping, wreck diving, sunset cruises, and private charters.',
+        accentClass: 'from-sky-100 to-teal-100',
+        type: 'solution',
+        thumbnail: 'https://avillanosaitsolutions.github.io/coralwind_expeditions/assets/hero-lTzpiZfs.jpg',
+        url: 'https://avillanosaitsolutions.github.io/coralwind_expeditions',
+    },
 ]
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -319,7 +329,6 @@ function HeroSection() {
 
 function WorkSection() {
     const { t } = useTranslation()
-    const workItems = projectItems.filter((item) => item.type === 'work')
 
     return (
         <FadeInOnView>
@@ -330,7 +339,7 @@ function WorkSection() {
                 </div>
 
                 <div className="grid gap-x-5 gap-y-10 md:grid-cols-3">
-                    {workItems.map((item, index) => (
+                    {projectItems.map((item, index) => (
                         <motion.article
                             key={item.name}
                             initial={{ opacity: 0, y: 20 }}
@@ -518,6 +527,62 @@ function SolutionsPage() {
                                 <ImageWithSkeleton
                                     src={item.thumbnail}
                                     alt={`${item.name} solution`}
+                                    wrapperClassName="aspect-[16/10] w-full"
+                                    className="h-full w-full object-cover"
+                                />
+                            ) : (
+                                <div className={`aspect-[16/10] w-full bg-gradient-to-br ${item.accentClass}`} />
+                            )}
+
+                            <div className="p-4">
+                                <h2 className="text-base font-semibold text-slate-800">{item.name}</h2>
+                                <p className="mt-1 text-xs text-slate-500">{item.category}</p>
+                                <p className="mt-2 text-xs leading-6 text-slate-500">{item.summary}</p>
+
+                                <div className="mt-4 flex flex-wrap gap-2">
+                                    {item.url && (
+                                        <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex">
+                                            <Button color="light" size="xs" className="rounded-none border border-slate-200 !bg-white !text-slate-700">
+                                                <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
+                                                    <ArrowRightAlt size={14} />
+                                                    Website
+                                                </span>
+                                            </Button>
+                                        </a>
+                                    )}
+                                    <Link to={`/work/${item.slug}`} className="inline-flex">
+                                        <Button color="light" size="xs" className="rounded-none border border-slate-200 !bg-white !text-slate-700">
+                                            <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
+                                                <ArrowRightAlt size={14} />
+                                                Details
+                                            </span>
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </article>
+                    ))}
+                </div>
+            </section>
+        </FadeInOnView>
+    )
+}
+
+function WorkPage() {
+    const workItems = projectItems.filter((item) => item.type === 'work')
+    return (
+        <FadeInOnView>
+            <section className="site-shell py-24">
+                <h1 className="text-5xl font-bold tracking-tight text-slate-900">Work</h1>
+                <p className="mt-4 max-w-3xl text-slate-600">Client projects we have delivered — websites, platforms, and digital experiences.</p>
+
+                <div className="mt-12 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+                    {workItems.map((item) => (
+                        <article key={item.slug} className="overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm">
+                            {item.thumbnail ? (
+                                <ImageWithSkeleton
+                                    src={item.thumbnail}
+                                    alt={`${item.name} project`}
                                     wrapperClassName="aspect-[16/10] w-full"
                                     className="h-full w-full object-cover"
                                 />
@@ -967,7 +1032,7 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/solutions" element={<SolutionsPage />} />
-                    <Route path="/work" element={<WorkSection />} />
+                    <Route path="/work" element={<WorkPage />} />
                     <Route path="/work/:projectSlug" element={<ProjectDetailsPage />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/contact" element={<ContactPage />} />
