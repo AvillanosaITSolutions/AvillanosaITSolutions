@@ -303,7 +303,80 @@ function SiteHeader() {
     )
 }
 
-function HeroSection() {
+function InquireNowModal({ onClose }: { onClose: () => void }) {
+    return (
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+            onClick={onClose}
+        >
+            <div
+                className="relative w-full max-w-md rounded-sm bg-white p-8 shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <button
+                    className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl leading-none"
+                    onClick={onClose}
+                    aria-label="Close"
+                >
+                    ✕
+                </button>
+
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-400">Get In Touch</p>
+                <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">Contact Us</h2>
+
+                <div className="mt-6 space-y-5">
+                    <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">Email</p>
+                        <a
+                            href="mailto:hello@itsavillanosa.com"
+                            className="mt-1 block text-base font-medium text-slate-800 hover:text-sage-700 break-all"
+                        >
+                            hello@itsavillanosa.com
+                        </a>
+                    </div>
+
+                    <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">Contact No.</p>
+                        <a
+                            href="tel:+639452873791"
+                            className="mt-1 block text-base font-medium text-slate-800 hover:text-sage-700"
+                        >
+                            (+63) 945 287 3791
+                        </a>
+                    </div>
+
+                    <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">Office Address</p>
+                        <p className="mt-1 text-base font-medium text-slate-800 leading-snug">
+                            Unit-A JDN Apartment Bgy Irawan,<br />Puerto Princesa City, Palawan
+                        </p>
+                    </div>
+
+                    <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">Follow Us</p>
+                        <div className="mt-2 flex items-center gap-5 text-slate-600">
+                            <a href="https://www.facebook.com/profile.php?id=61565257933229" target="_blank" rel="noreferrer" aria-label="Facebook" className="hover:text-sage-700"><Facebook size={22} /></a>
+                            <a href="https://www.linkedin.com/company/avillanosa-information-technology-solutions" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-sage-700"><Linkedin size={22} /></a>
+                            <a href="https://github.com/AvillanosaITSolutions" target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:text-sage-700"><Github size={22} /></a>
+                        </div>
+                    </div>
+                </div>
+
+                <Link
+                    to="/contact"
+                    onClick={onClose}
+                    className="mt-8 block"
+                >
+                    <Button color="light" className="w-full rounded-none border-0 !bg-sage-800 !text-white py-2.5 text-[11px] font-bold uppercase tracking-[0.16em] hover:!bg-sage-700">
+                        Send Us a Message
+                    </Button>
+                </Link>
+            </div>
+        </div>
+    )
+}
+
+function HeroSection({ onInquire }: { onInquire: () => void }) {
     const { t } = useTranslation()
     const offers = t('home.hero.offers', { returnObjects: true }) as string[]
 
@@ -322,12 +395,18 @@ function HeroSection() {
                 </div>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                    <Button color="light" className="rounded-none border-0 !bg-slate-800 !text-white px-7 py-1 text-[11px] font-bold uppercase tracking-[0.14em] hover:!bg-slate-700">
+                    <Button
+                        color="light"
+                        className="rounded-none border-0 !bg-slate-800 !text-white px-7 py-1 text-[11px] font-bold uppercase tracking-[0.14em] hover:!bg-slate-700"
+                        onClick={onInquire}
+                    >
                         {t('home.hero.actions.inquireNow')}
                     </Button>
-                    <Button color="light" className="rounded-none border border-slate-200 !bg-white !text-slate-900 px-7 py-1 text-[11px] font-bold uppercase tracking-[0.14em] shadow-md hover:shadow-lg">
-                        {t('home.hero.actions.getToKnowUs')}
-                    </Button>
+                    <Link to="/about">
+                        <Button color="light" className="rounded-none border border-slate-200 !bg-white !text-slate-900 px-7 py-1 text-[11px] font-bold uppercase tracking-[0.14em] shadow-md hover:shadow-lg">
+                            {t('home.hero.actions.getToKnowUs')}
+                        </Button>
+                    </Link>
                 </div>
             </section>
         </FadeInOnView>
@@ -427,7 +506,7 @@ function ClientsWordsSection() {
     )
 }
 
-function ContactBand() {
+function ContactBand({ onInquire }: { onInquire: () => void }) {
     const { t } = useTranslation()
 
     return (
@@ -461,7 +540,11 @@ function ContactBand() {
                             <a href="https://github.com/AvillanosaITSolutions" target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:text-sage-700"><Github size={24} /></a>
                         </div>
 
-                        <Button color="light" className="mt-14 w-full rounded-none border-0 !bg-sage-400 !text-white px-10 py-3 text-sm font-bold uppercase tracking-[0.16em] hover:!bg-sage-500 md:w-[300px]">
+                        <Button
+                            color="light"
+                            className="mt-14 w-full rounded-none border-0 !bg-sage-400 !text-white px-10 py-3 text-sm font-bold uppercase tracking-[0.16em] hover:!bg-sage-500 md:w-[300px]"
+                            onClick={onInquire}
+                        >
                             {t('home.hero.actions.inquireNow')}
                         </Button>
                     </div>
@@ -471,11 +554,11 @@ function ContactBand() {
     )
 }
 
-function HomePage() {
+function HomePage({ onInquire }: { onInquire: () => void }) {
     return (
         <>
             <SideSocialRail />
-            <HeroSection />
+            <HeroSection onInquire={onInquire} />
             <WorkSection />
             <ClientsWordsSection />
         </>
@@ -860,7 +943,7 @@ function ContactPage() {
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setStatusText('')
         setStatusType('idle')
@@ -893,44 +976,30 @@ function ContactPage() {
 
         setIsSubmitting(true)
 
-        try {
-            const response = await fetch('https://api.rentalbasic.com/notifications/email/send', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    to: 'hello@itsavillanosa.com',
-                    subject: `New Inquiry from ${payload.name}`,
-                    html: `<h2>New Contact Inquiry</h2>
-<p><strong>Name:</strong> ${payload.name}</p>
-<p><strong>Email:</strong> ${payload.email}</p>
-<p><strong>Contact No.:</strong> ${payload.contactNo}</p>
-<p><strong>Budget:</strong> ${payload.budget}</p>
-<p><strong>Message:</strong></p>
-<p>${payload.message.replace(/\n/g, '<br/>')}</p>`,
-                }),
-            })
+        const subject = `New Inquiry from ${payload.name}`
+        const body = [
+            `Name: ${payload.name}`,
+            `Email: ${payload.email}`,
+            `Contact No.: ${payload.contactNo}`,
+            `Budget: ${payload.budget}`,
+            '',
+            'Message:',
+            payload.message,
+        ].join('\n')
 
-            if (!response.ok) {
-                throw new Error('Unable to send message right now.')
-            }
+        const mailtoUrl = `mailto:hello@itsavillanosa.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+        window.location.href = mailtoUrl
 
-            setStatusType('success')
-            setStatusText('Your inquiry has been sent. We will contact you shortly.')
-            setFormData({
-                name: '',
-                email: '',
-                contactNo: '',
-                budget: '',
-                message: '',
-            })
-        } catch {
-            setStatusType('error')
-            setStatusText('Failed to send inquiry. Please try again in a few moments.')
-        } finally {
-            setIsSubmitting(false)
-        }
+        setStatusType('success')
+        setStatusText('Your email app is opening with your inquiry details.')
+        setFormData({
+            name: '',
+            email: '',
+            contactNo: '',
+            budget: '',
+            message: '',
+        })
+        setIsSubmitting(false)
     }
 
     return (
@@ -1031,12 +1100,14 @@ function AppFooter() {
 }
 
 function App() {
+    const [isInquireOpen, setIsInquireOpen] = useState(false)
+
     return (
         <div className="relative flex min-h-screen flex-col">
             <SiteHeader />
             <main className="flex-1">
                 <Routes>
-                    <Route path="/" element={<HomePage />} />
+                    <Route path="/" element={<HomePage onInquire={() => setIsInquireOpen(true)} />} />
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/solutions" element={<SolutionsPage />} />
                     <Route path="/work" element={<WorkPage />} />
@@ -1045,8 +1116,9 @@ function App() {
                     <Route path="/contact" element={<ContactPage />} />
                 </Routes>
             </main>
-            <ContactBand />
+            <ContactBand onInquire={() => setIsInquireOpen(true)} />
             <AppFooter />
+            {isInquireOpen && <InquireNowModal onClose={() => setIsInquireOpen(false)} />}
         </div>
     )
 }
