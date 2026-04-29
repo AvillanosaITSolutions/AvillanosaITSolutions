@@ -83,6 +83,16 @@ const projectItems: ProjectItem[] = [
         thumbnail: 'https://avillanosaitsolutions.github.io/coralwind_expeditions/assets/hero-lTzpiZfs.jpg',
         url: 'https://avillanosaitsolutions.github.io/coralwind_expeditions',
     },
+    {
+        slug: 'orbit-gadget-co',
+        name: 'Orbit Gadget Co.',
+        category: 'Client Website - Gadget Retail & Repair',
+        summary: 'Apple & Android gadgets, screen repairs, battery replacements, and flexible installment plans — all under one roof in a city-center shop.',
+        accentClass: 'from-blue-100 to-indigo-100',
+        type: 'solution',
+        thumbnail: 'https://avillanosaitsolutions.github.io/orbit-gadget-co/assets/logo-Bho3raxG.png',
+        url: 'https://avillanosaitsolutions.github.io/orbit-gadget-co',
+    },
 ]
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
