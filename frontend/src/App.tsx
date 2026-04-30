@@ -90,7 +90,7 @@ const projectItems: ProjectItem[] = [
         summary: 'Apple & Android gadgets, screen repairs, battery replacements, and flexible installment plans — all under one roof in a city-center shop.',
         accentClass: 'from-blue-100 to-indigo-100',
         type: 'solution',
-        thumbnail: 'https://avillanosaitsolutions.github.io/orbit-gadget-co/assets/logo-Bho3raxG.png',
+        thumbnail: '@file:orbit-gadget.png',
         url: 'https://avillanosaitsolutions.github.io/orbit-gadget-co',
     },
 ]
