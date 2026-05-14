@@ -93,6 +93,16 @@ const projectItems: ProjectItem[] = [
         thumbnail: '@file:orbit-gadget.png',
         url: 'https://avillanosaitsolutions.github.io/orbit-gadget-co',
     },
+    {
+        slug: 'peso-stack-transparency-visualizer',
+        name: 'Peso Stack Transparency Visualizer',
+        category: 'Civic Tech - Public Transparency Tool',
+        summary: 'A web-based visualization tool that represents large financial figures using stacks of Philippine peso bills, making corruption-related and public spending data easier to understand.',
+        accentClass: 'from-emerald-100 to-cyan-100',
+        type: 'solution',
+        thumbnail: '/buttload.png',
+        url: 'https://avillanosaitsolutions.github.io/buttload',
+    },
 ]
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
