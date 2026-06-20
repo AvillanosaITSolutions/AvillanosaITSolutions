@@ -214,8 +214,23 @@ function ImageWithSkeleton({
     )
 }
 
-function WorkCardThumbnail({ item }: { item: ProjectItem }) {
+// Live screenshot of a site via thum.io (no API key required). Used as the
+// primary preview for any work item that links to a real URL.
+function getSitePreview(url: string) {
+    return `https://image.thum.io/get/width/800/crop/500/noanimate/${url}`
+}
+
+function WorkCardThumbnail({
+    item,
+    wrapperClassName = 'aspect-[16/10] w-full rounded-sm ring-1 ring-slate-200',
+    imgClassName = 'h-full w-full rounded-sm object-cover',
+}: {
+    item: ProjectItem
+    wrapperClassName?: string
+    imgClassName?: string
+}) {
     const imageCandidates = [
+        item.url ? getSitePreview(item.url) : undefined,
         item.thumbnail,
         '/app_logo.png',
     ].filter((candidate): candidate is string => Boolean(candidate))
@@ -224,15 +239,15 @@ function WorkCardThumbnail({ item }: { item: ProjectItem }) {
     const src = imageCandidates[imageIndex]
 
     if (!src) {
-        return <div className={`aspect-[16/10] w-full rounded-sm bg-gradient-to-br ${item.accentClass} ring-1 ring-slate-200`} />
+        return <div className={`bg-gradient-to-br ${item.accentClass} ${wrapperClassName}`} />
     }
 
     return (
         <ImageWithSkeleton
             src={src}
-            alt={`${item.name} thumbnail`}
-            wrapperClassName="aspect-[16/10] w-full rounded-sm ring-1 ring-slate-200"
-            className="h-full w-full rounded-sm object-cover"
+            alt={`${item.name} preview`}
+            wrapperClassName={wrapperClassName}
+            className={imgClassName}
             onError={() => setImageIndex((currentIndex) => currentIndex + 1)}
         />
     )
@@ -660,16 +675,11 @@ function SolutionsPage() {
                 <div className="mt-12 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
                     {solutionItems.map((item) => (
                         <article key={item.slug} className="overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm">
-                            {item.thumbnail ? (
-                                <ImageWithSkeleton
-                                    src={item.thumbnail}
-                                    alt={`${item.name} solution`}
-                                    wrapperClassName="aspect-[16/10] w-full"
-                                    className="h-full w-full object-cover"
-                                />
-                            ) : (
-                                <div className={`aspect-[16/10] w-full bg-gradient-to-br ${item.accentClass}`} />
-                            )}
+                            <WorkCardThumbnail
+                                item={item}
+                                wrapperClassName="aspect-[16/10] w-full"
+                                imgClassName="h-full w-full object-cover"
+                            />
 
                             <div className="p-4">
                                 <h2 className="text-base font-semibold text-slate-800">{item.name}</h2>
@@ -716,16 +726,11 @@ function WorkPage() {
                 <div className="mt-12 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
                     {workItems.map((item) => (
                         <article key={item.slug} className="overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm">
-                            {item.thumbnail ? (
-                                <ImageWithSkeleton
-                                    src={item.thumbnail}
-                                    alt={`${item.name} project`}
-                                    wrapperClassName="aspect-[16/10] w-full"
-                                    className="h-full w-full object-cover"
-                                />
-                            ) : (
-                                <div className={`aspect-[16/10] w-full bg-gradient-to-br ${item.accentClass}`} />
-                            )}
+                            <WorkCardThumbnail
+                                item={item}
+                                wrapperClassName="aspect-[16/10] w-full"
+                                imgClassName="h-full w-full object-cover"
+                            />
 
                             <div className="p-4">
                                 <h2 className="text-base font-semibold text-slate-800">{item.name}</h2>
