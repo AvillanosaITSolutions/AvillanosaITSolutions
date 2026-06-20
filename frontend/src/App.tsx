@@ -103,6 +103,33 @@ const projectItems: ProjectItem[] = [
         thumbnail: '/buttload.png',
         url: 'https://avillanosaitsolutions.github.io/buttload',
     },
+    {
+        slug: 'sip-n-bite-nutrition',
+        name: 'Sip n Bite Nutrition',
+        category: 'Client Website - Nutrition & Wellness',
+        summary: 'A website for Sip n Bite Nutrition.',
+        accentClass: 'from-lime-100 to-emerald-100',
+        type: 'work',
+        url: 'https://88.222.245.88.sslip.io/',
+    },
+    {
+        slug: 'cluck-fighters',
+        name: 'Cluck Fighters',
+        category: 'Web Game - PvP',
+        summary: 'A PvP game with chickens.',
+        accentClass: 'from-amber-100 to-red-100',
+        type: 'work',
+        url: 'https://chicken.88-222-245-88.nip.io/',
+    },
+    {
+        slug: 'virtual-rage-room',
+        name: 'Virtual Rage Room',
+        category: 'Interactive Web Experience',
+        summary: 'A virtual rage room.',
+        accentClass: 'from-slate-200 to-rose-100',
+        type: 'work',
+        url: 'https://rage.88-222-245-88.nip.io/',
+    },
 ]
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
