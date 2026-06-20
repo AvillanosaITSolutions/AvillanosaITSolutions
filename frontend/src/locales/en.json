@@ -93,10 +93,17 @@
       "introPara4": "Because good tech shouldn't impress you—it should quietly do its job so you can focus on yours.",
       "whoTitle": "Who We Are",
       "who": [
-        { "value": "Year Founded", "label": "Built for today's problems, not yesterday's standards" },
-        { "value": "Team", "label": "Lean, technical, and execution-driven" },
-        { "value": "Location", "label": "Philippines" },
-        { "value": "Work", "label": "From custom systems to scalable platforms like RentalBasic" }
+        { "value": "Est. 2024", "label": "Built for today's problems, not yesterday's standards" },
+        { "value": "10+ Years", "label": "Of hands-on software engineering behind every build" },
+        { "value": "Puerto Princesa", "label": "Palawan-based, serving local and remote clients" },
+        { "value": "Web · Desktop · 3D", "label": "From custom systems to scalable platforms like RentalBasic" }
+      ],
+      "bgTitle": "Experience That Backs Us",
+      "bgLead": "Avillanosa IT Solutions is led by Kim Cyriel S. Avillanosa, a software developer with over a decade of experience across web, desktop, and 3D applications—and a strong background in frontend engineering, system design, and maintainable architecture.",
+      "bg": [
+        { "title": "International delivery", "description": "Built frontend features and tooling for Medgate Switzerland, 3D/WebGL work for Cabinets by Computer (Australia), and full-stack systems with Applus+ in Barcelona via Yondu." },
+        { "title": "Local roots", "description": "Years engineering web services and integrations for Palawan Express Pera Padala and modernizing legacy systems for the Palawan Group of Companies." },
+        { "title": "End to end", "description": "Requirements gathering, system architecture, development, and deployment—handled directly, so clients work with the person building their solution." }
       ],
       "thinkTitle": "How We Think",
       "think": [

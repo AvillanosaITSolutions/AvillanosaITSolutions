@@ -93,10 +93,17 @@
       "introPara4": "Dahil ang magandang tech ay hindi dapat humanga sa inyo—dapat tahimik na gawin ang trabaho nito para maka-focus kayo sa sa inyo.",
       "whoTitle": "Sino Kami",
       "who": [
-        { "value": "Taong Itinatag", "label": "Ginawa para sa problema ngayon, hindi kahapon" },
-        { "value": "Koponan", "label": "Maliit, teknikal, at nakatuon sa pagpapatupad" },
-        { "value": "Lokasyon", "label": "Pilipinas" },
-        { "value": "Gawa", "label": "Mula sa custom systems hanggang scalable platforms tulad ng RentalBasic" }
+        { "value": "Est. 2024", "label": "Ginawa para sa problema ngayon, hindi kahapon" },
+        { "value": "10+ Taon", "label": "Ng hands-on software engineering sa likod ng bawat build" },
+        { "value": "Puerto Princesa", "label": "Nakabase sa Palawan, naglilingkod sa local at remote na kliyente" },
+        { "value": "Web · Desktop · 3D", "label": "Mula sa custom systems hanggang scalable platforms tulad ng RentalBasic" }
+      ],
+      "bgTitle": "Karanasang Sumusuporta sa Amin",
+      "bgLead": "Pinangungunahan ang Avillanosa IT Solutions ni Kim Cyriel S. Avillanosa, isang software developer na may mahigit sampung taong karanasan sa web, desktop, at 3D na aplikasyon—at matibay na pundasyon sa frontend engineering, system design, at maintainable architecture.",
+      "bg": [
+        { "title": "Internasyonal na paghahatid", "description": "Gumawa ng frontend features at tooling para sa Medgate Switzerland, 3D/WebGL para sa Cabinets by Computer (Australia), at full-stack systems kasama ang Applus+ sa Barcelona sa pamamagitan ng Yondu." },
+        { "title": "Lokal na ugat", "description": "Mga taon ng pag-engineer ng web services at integrations para sa Palawan Express Pera Padala at pag-modernize ng legacy systems para sa Palawan Group of Companies." },
+        { "title": "Dulo hanggang dulo", "description": "Requirements gathering, system architecture, development, at deployment—direktang hawak, kaya nakikipagtulungan ang kliyente sa mismong gumagawa ng kanilang solusyon." }
       ],
       "thinkTitle": "Paano Namin Iniisip",
       "think": [

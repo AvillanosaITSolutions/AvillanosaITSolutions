@@ -874,6 +874,7 @@ function ProjectDetailsPage() {
 function AboutPage() {
     const { t } = useTranslation()
     const who = t('pages.about.who', { returnObjects: true }) as Array<{ value: string; label: string }>
+    const background = t('pages.about.bg', { returnObjects: true }) as Array<{ title: string; description: string }>
     const think = t('pages.about.think', { returnObjects: true }) as Array<{ title: string; description: string }>
 
     return (
@@ -931,6 +932,32 @@ function AboutPage() {
                 </div>
             </FadeInOnView>
 
+            {/* Experience That Backs Us */}
+            <FadeInOnView>
+                <div className="site-shell mt-20">
+                    <div className="mb-8 flex items-center gap-4">
+                        <span className="h-px w-14 bg-sage-500" />
+                        <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-700">{t('pages.about.bgTitle')}</span>
+                    </div>
+                    <p className="max-w-3xl text-sm leading-8 text-slate-600">{t('pages.about.bgLead')}</p>
+                    <div className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+                        {background.map((item, index) => (
+                            <motion.article
+                                key={item.title}
+                                initial={{ opacity: 0, y: 18 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0.35 }}
+                                transition={{ duration: 0.42, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                                className="border-l-2 border-sage-400 pl-4"
+                            >
+                                <h3 className="text-[15px] font-bold leading-snug text-sage-700">{item.title}</h3>
+                                <p className="mt-1 text-xs leading-6 text-slate-500">{item.description}</p>
+                            </motion.article>
+                        ))}
+                    </div>
+                </div>
+            </FadeInOnView>
+
             {/* How We Think */}
             <FadeInOnView>
                 <div className="site-shell mt-20">
@@ -983,14 +1010,20 @@ function ContactPage() {
         contactNo: '',
         budget: '',
         message: '',
+        company: '', // honeypot — should stay empty
     })
+
+    const apiUrl = import.meta.env.VITE_CONTACT_API_URL as string | undefined
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const resetForm = () =>
+        setFormData({ name: '', email: '', contactNo: '', budget: '', message: '', company: '' })
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setStatusText('')
         setStatusType('idle')
@@ -1001,6 +1034,7 @@ function ContactPage() {
             contactNo: formData.contactNo.trim(),
             budget: formData.budget.trim(),
             message: formData.message.trim(),
+            company: formData.company.trim(),
         }
 
         if (!payload.name || !payload.email || !payload.contactNo || !payload.budget || !payload.message) {
@@ -1023,6 +1057,37 @@ function ContactPage() {
 
         setIsSubmitting(true)
 
+        // Preferred path: send through the Nodemailer backend when configured.
+        if (apiUrl) {
+            try {
+                const response = await fetch(`${apiUrl.replace(/\/$/, '')}/api/contact`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                })
+                const result = await response.json().catch(() => ({}))
+
+                if (!response.ok || !result.ok) {
+                    throw new Error(result.error || 'Request failed')
+                }
+
+                setStatusType('success')
+                setStatusText('Thanks! Your message has been sent. We will get back to you shortly.')
+                resetForm()
+            } catch (error) {
+                setStatusType('error')
+                setStatusText(
+                    error instanceof Error && error.message !== 'Request failed'
+                        ? error.message
+                        : 'Something went wrong while sending. Please try again or email hello@itsavillanosa.com.',
+                )
+            } finally {
+                setIsSubmitting(false)
+            }
+            return
+        }
+
+        // Fallback when no backend is configured: open the visitor's mail app.
         const subject = `New Inquiry from ${payload.name}`
         const body = [
             `Name: ${payload.name}`,
@@ -1039,13 +1104,7 @@ function ContactPage() {
 
         setStatusType('success')
         setStatusText('Your email app is opening with your inquiry details.')
-        setFormData({
-            name: '',
-            email: '',
-            contactNo: '',
-            budget: '',
-            message: '',
-        })
+        resetForm()
         setIsSubmitting(false)
     }
 
@@ -1063,6 +1122,17 @@ function ContactPage() {
                     <p className="mt-5 max-w-xl text-sm leading-7 text-slate-500">{t('pages.contact.subTitle')}</p>
 
                     <form className="mt-10 max-w-2xl" onSubmit={handleSubmit}>
+                        {/* Honeypot: hidden from real users, catches bots */}
+                        <input
+                            type="text"
+                            name="company"
+                            value={formData.company}
+                            onChange={handleChange}
+                            tabIndex={-1}
+                            autoComplete="off"
+                            aria-hidden="true"
+                            className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                        />
                         <div className="grid gap-3 sm:grid-cols-2">
                             <input
                                 type="text"
