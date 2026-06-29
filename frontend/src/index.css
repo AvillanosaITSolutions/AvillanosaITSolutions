@@ -169,8 +169,8 @@ body {
 
 .service-outline.is-active {
   -webkit-text-stroke: 0;
-  color: #d4a843;
-  background: linear-gradient(180deg, #d4a843 0%, #a67c2e 100%);
+  color: #e84118;
+  background: linear-gradient(180deg, #e84118 0%, #e67e22 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
