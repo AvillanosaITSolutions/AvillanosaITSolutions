@@ -438,40 +438,402 @@ function InquireNowModal({ onClose }: { onClose: () => void }) {
     )
 }
 
-function HeroSection({ onInquire }: { onInquire: () => void }) {
-    const { t } = useTranslation()
-    const offers = t('home.hero.offers', { returnObjects: true }) as string[]
+function CustomCursor() {
+    const cursorRef = useRef<HTMLDivElement>(null)
+    const [isHovering, setIsHovering] = useState(false)
+
+    useEffect(() => {
+        const cursor = cursorRef.current
+        if (!cursor) return
+
+        const move = (e: MouseEvent) => {
+            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`
+        }
+
+        const handleOver = (e: MouseEvent) => {
+            const target = e.target as HTMLElement
+            if (target.closest('a, button, [role="button"], input, textarea, select, label')) {
+                setIsHovering(true)
+            }
+        }
+
+        const handleOut = () => setIsHovering(false)
+
+        window.addEventListener('mousemove', move)
+        document.addEventListener('mouseover', handleOver)
+        document.addEventListener('mouseout', handleOut)
+        return () => {
+            window.removeEventListener('mousemove', move)
+            document.removeEventListener('mouseover', handleOver)
+            document.removeEventListener('mouseout', handleOut)
+        }
+    }, [])
 
     return (
-        <FadeInOnView>
-            <section className="site-shell pt-20">
-                <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-[1.12] tracking-tight text-sage-900 md:text-6xl">{t('home.hero.title')}</h1>
-                <p className="mt-4 max-w-2xl text-sm text-slate-500">We craft clear, reliable digital products to elevate your brand and core operations.</p>
+        <div
+            ref={cursorRef}
+            className={`custom-cursor ${isHovering ? 'is-hovering' : ''}`}
+        >
+            <div className="custom-cursor-dot" />
+        </div>
+    )
+}
 
-                <div className="mt-8 grid max-w-3xl gap-2 md:grid-cols-2">
-                    {offers.map((offer) => (
-                        <p key={offer} className="text-sm text-slate-600">
-                            {offer}
-                        </p>
+function DarkHeroSection() {
+    return (
+        <section className="hero-spotlight relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-20">
+            {/* Background timelapse */}
+            <div className="hero-media-wrap">
+                <img
+                    src="/timelapse.gif"
+                    alt=""
+                    aria-hidden="true"
+                    className="hero-media"
+                />
+                <div className="hero-media-overlay" />
+            </div>
+
+            <div className="site-shell-wide relative z-10">
+                <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    className="text-sm tracking-[0.2em] text-sage-400 uppercase"
+                >
+                    Since 2024
+                </motion.p>
+
+                <motion.h1
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                    className="mt-6 text-[clamp(3rem,9vw,7rem)] font-extrabold leading-[0.95] tracking-tight"
+                    style={{ color: '#e8e2d4' }}
+                >
+                    BUILDING<br />
+                    <span className="ml-4 md:ml-12">DIGITAL</span><br />
+                    <span className="ml-10 md:ml-24">TOOLS &</span><br />
+                    <span className="ml-6 md:ml-16">EXPERIENCES</span><br />
+                    <span className="ml-10 md:ml-28">FOR IMPACT</span>
+                </motion.h1>
+
+                <div className="mt-12 flex items-center justify-between">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: 0.6 }}
+                    >
+                        <Link to="/work">
+                            <button className="rounded-full border border-gray-500 px-6 py-2.5 text-sm text-gray-300 hover:border-sage-400 hover:text-sage-400 transition-colors">
+                                Our Work
+                            </button>
+                        </Link>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: 0.6 }}
+                    >
+                        <Link to="/services">
+                            <button className="rounded-full border border-sage-500 px-6 py-2.5 text-sm text-sage-400 hover:bg-sage-500 hover:text-white transition-colors">
+                                Our Services
+                            </button>
+                        </Link>
+                    </motion.div>
+                </div>
+            </div>
+        </section>
+    )
+}
+
+function DarkDescriptionSection() {
+    return (
+        <FadeInOnView>
+            <section className="py-24 text-center">
+                <p className="site-shell text-lg md:text-xl leading-relaxed text-gray-400">
+                    We are a digital agency that helps organizations and individuals
+                    create impact by building web and mobile applications.
+                </p>
+            </section>
+        </FadeInOnView>
+    )
+}
+
+const serviceData = [
+    {
+        title: 'Web & Software Development',
+        items: ['Custom Web Applications', 'E-Commerce Platforms', 'Content Management Systems', 'API Development & Integration', 'Progressive Web Apps'],
+    },
+    {
+        title: 'Mobile App Development',
+        items: ['Cross-Platform Apps', 'Native Android & iOS', 'App Prototyping', 'App Store Deployment', 'Maintenance & Updates'],
+    },
+    {
+        title: 'Design & Branding',
+        items: ['UI/UX Design', 'Brand Identity', 'Graphic Design', 'Design Systems', 'Marketing Collateral'],
+    },
+    {
+        title: 'Enterprise Solutions',
+        items: ['ERP & CRM Systems', 'Workflow Automation', 'Business Intelligence', 'Cloud Infrastructure', 'System Integration'],
+    },
+    {
+        title: 'IT Consultancy',
+        items: ['Technology Audits', 'Digital Strategy', 'Architecture Planning', 'Vendor Selection', 'Security Assessment'],
+    },
+    {
+        title: 'Digital Transformation',
+        items: ['Evaluation & Impact Assessment', 'Implementation Support', 'Proof of Concept Development', 'Feasibility Studies', 'Research & Strategy'],
+    },
+]
+
+function DarkServicesSection() {
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
+
+    return (
+        <section className="py-16">
+            <div className="site-shell-wide">
+                <div className="space-y-2">
+                    {serviceData.map((service, index) => (
+                        <motion.div
+                            key={service.title}
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, amount: 0.3 }}
+                            transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                            className="relative"
+                            onMouseEnter={() => setActiveIndex(index)}
+                            onMouseLeave={() => setActiveIndex(null)}
+                        >
+                            <div className={`service-outline ${activeIndex === index ? 'is-active' : ''}`}>
+                                {service.title.toUpperCase()}
+                            </div>
+
+                            {activeIndex === index && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="service-popup"
+                                >
+                                    <p className="text-sm font-bold text-white tracking-wide mb-3">
+                                        {service.title.toUpperCase()}
+                                    </p>
+                                    {service.items.map((item) => (
+                                        <Link
+                                            key={item}
+                                            to="/services"
+                                            className="block py-2 text-sm text-gray-300 hover:text-sage-400 transition-colors border-b border-dark-600 last:border-0"
+                                        >
+                                            {item}
+                                        </Link>
+                                    ))}
+                                </motion.div>
+                            )}
+                        </motion.div>
                     ))}
                 </div>
 
-                <div className="mt-8 flex flex-wrap gap-3">
-                    <Button
-                        color="light"
-                        className="rounded-none border-0 !bg-slate-800 !text-white px-7 py-1 text-[11px] font-bold uppercase tracking-[0.14em] hover:!bg-slate-700"
-                        onClick={onInquire}
-                    >
-                        {t('home.hero.actions.inquireNow')}
-                    </Button>
-                    <Link to="/about">
-                        <Button color="light" className="rounded-none border border-slate-200 !bg-white !text-slate-900 px-7 py-1 text-[11px] font-bold uppercase tracking-[0.14em] shadow-md hover:shadow-lg">
-                            {t('home.hero.actions.getToKnowUs')}
-                        </Button>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="mt-10"
+                >
+                    <Link to="/services">
+                        <button className="rounded-full border border-gray-600 px-8 py-3 text-sm text-gray-300 hover:border-sage-400 hover:text-sage-400 transition-colors">
+                            Explore our services
+                        </button>
                     </Link>
+                </motion.div>
+            </div>
+        </section>
+    )
+}
+
+function DarkProjectsSection() {
+    const featured = projectItems.filter((item) => item.url)
+
+    return (
+        <section className="py-24">
+            <div className="site-shell-wide">
+                <div className="mb-6 flex items-center gap-4">
+                    <span className="h-px w-14 bg-sage-500" />
+                    <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-gray-400">Featured Work</span>
+                </div>
+
+                <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4" style={{ color: '#e8e2d4' }}>
+                    OUR PROJECTS
+                </h2>
+                <p className="max-w-2xl text-sm leading-7 text-gray-500 mb-12">
+                    Websites, platforms, and digital experiences we've built for clients across various industries.
+                </p>
+
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {featured.map((item, index) => (
+                        <motion.a
+                            key={item.slug}
+                            href={item.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            initial={{ opacity: 0, y: 24 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{ duration: 0.5, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                            className="group relative block overflow-hidden rounded-lg border border-dark-600 bg-dark-800 transition-colors hover:border-sage-500/40"
+                        >
+                            <div className="aspect-[16/10] w-full overflow-hidden bg-dark-700">
+                                <img
+                                    src={getSitePreview(item.url!)}
+                                    alt={`${item.name} screenshot`}
+                                    loading="lazy"
+                                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                                    onError={(e) => {
+                                        const target = e.currentTarget
+                                        if (item.thumbnail && !target.dataset.fallback) {
+                                            target.dataset.fallback = '1'
+                                            target.src = item.thumbnail
+                                        }
+                                    }}
+                                />
+                            </div>
+
+                            <div className="p-5">
+                                <h3 className="text-base font-bold text-gray-200 group-hover:text-sage-400 transition-colors">
+                                    {item.name}
+                                </h3>
+                                <p className="mt-1 text-xs font-medium uppercase tracking-[0.12em] text-sage-500">
+                                    {item.category}
+                                </p>
+                                <p className="mt-2 text-sm leading-6 text-gray-500 line-clamp-2">
+                                    {item.summary}
+                                </p>
+
+                                <span className="mt-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-gray-400 group-hover:text-sage-400 transition-colors">
+                                    <ArrowRightAlt size={14} />
+                                    View Project
+                                </span>
+                            </div>
+                        </motion.a>
+                    ))}
+                </div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="mt-10 text-center"
+                >
+                    <Link to="/work">
+                        <button className="rounded-full border border-gray-600 px-8 py-3 text-sm text-gray-300 hover:border-sage-400 hover:text-sage-400 transition-colors">
+                            View all projects
+                        </button>
+                    </Link>
+                </motion.div>
+            </div>
+        </section>
+    )
+}
+
+function DarkIndustriesSection() {
+    const industries = ['CORPORATE', 'STARTUP', 'E-COMMERCE', 'TOURISM', 'CIVIC TECH', 'FOOD & BEVERAGE']
+
+    return (
+        <FadeInOnView>
+            <section className="py-24">
+                <div className="site-shell text-center">
+                    <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight" style={{ color: '#e8e2d4' }}>
+                        DIGITAL SOLUTIONS<br />SPANNING INDUSTRIES
+                    </h2>
+
+                    <div className="mt-4 flex justify-center">
+                        <img src="/app_logo.png" alt="Avillanosa IT Solutions" className="h-10 w-10 object-contain" />
+                    </div>
+
+                    <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+                        {industries.map((industry, i) => (
+                            <div key={industry} className="flex items-center gap-6">
+                                <span className="text-sm font-bold tracking-[0.15em] text-gray-400">{industry}</span>
+                                {i < industries.length - 1 && (
+                                    <span className="h-2 w-2 rounded-full bg-sage-500" />
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
+                    <p className="mx-auto mt-10 max-w-2xl text-sm leading-7 text-gray-500">
+                        We take immense pride in providing digital solutions and services that transcend industries.
+                        Whether you're in e-commerce, tourism, food & beverage, civic tech, or any other sector,
+                        our expertise ensures that your digital presence meets and exceeds standards.
+                    </p>
                 </div>
             </section>
         </FadeInOnView>
+    )
+}
+
+function DarkCTASection() {
+    return (
+        <FadeInOnView>
+            <section className="hero-spotlight relative py-28">
+                <div className="site-shell relative z-10 text-center">
+                    <h2 className="text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[0.95] tracking-tight" style={{ color: '#e8e2d4' }}>
+                        LETS CREATE<br />IMPACT<br />TOGETHER
+                    </h2>
+
+                    <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
+                        <Link to="/about">
+                            <button className="rounded-full border border-gray-500 px-8 py-3 text-sm text-gray-300 hover:border-sage-400 hover:text-sage-400 transition-colors">
+                                Join us
+                            </button>
+                        </Link>
+                        <Link to="/contact">
+                            <button className="rounded-full border border-sage-500 px-8 py-3 text-sm text-sage-400 hover:bg-sage-500 hover:text-white transition-colors">
+                                Start a project
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+            </section>
+        </FadeInOnView>
+    )
+}
+
+function DarkFooterSection() {
+    return (
+        <footer className="border-t border-dark-700 py-10">
+            <div className="site-shell-wide flex flex-col items-center gap-6 md:flex-row md:justify-between">
+                <div className="text-center md:text-left">
+                    <p className="text-sm text-gray-400">Unit-A JDN Apartment Bgy Irawan,</p>
+                    <p className="text-sm text-gray-400">Puerto Princesa City, Palawan</p>
+                </div>
+
+                <div className="text-center md:text-right">
+                    <a href="tel:+639452873791" className="text-sm text-gray-300 hover:text-sage-400 transition-colors underline">
+                        (+63) 945 287 3791
+                    </a>
+                    <div className="mt-3 flex items-center justify-center gap-4 md:justify-end">
+                        <a href="https://www.facebook.com/profile.php?id=61565257933229" target="_blank" rel="noreferrer" aria-label="Facebook" className="text-gray-500 hover:text-sage-400 transition-colors">
+                            <Facebook size={20} />
+                        </a>
+                        <a href="https://www.linkedin.com/company/avillanosa-information-technology-solutions" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="text-gray-500 hover:text-sage-400 transition-colors">
+                            <Linkedin size={20} />
+                        </a>
+                        <a href="https://github.com/AvillanosaITSolutions" target="_blank" rel="noreferrer" aria-label="GitHub" className="text-gray-500 hover:text-sage-400 transition-colors">
+                            <Github size={20} />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div className="site-shell-wide mt-6 text-center">
+                <p className="text-xs text-gray-600">
+                    &copy; {new Date().getFullYear()} Avillanosa Information Technology Solutions. All rights reserved.
+                </p>
+            </div>
+        </footer>
     )
 }
 
@@ -616,13 +978,17 @@ function ContactBand({ onInquire }: { onInquire: () => void }) {
     )
 }
 
-function HomePage({ onInquire }: { onInquire: () => void }) {
+function HomePage() {
     return (
         <>
-            <SideSocialRail />
-            <HeroSection onInquire={onInquire} />
-            <WorkSection />
-            <ClientsWordsSection />
+            <CustomCursor />
+            <DarkHeroSection />
+            <DarkDescriptionSection />
+            <DarkServicesSection />
+            <DarkProjectsSection />
+            <DarkIndustriesSection />
+            <DarkCTASection />
+            <DarkFooterSection />
         </>
     )
 }
@@ -1222,14 +1588,28 @@ function AppFooter() {
 }
 
 function App() {
+    const location = useLocation()
+    const isHome = location.pathname === '/'
     const [isInquireOpen, setIsInquireOpen] = useState(false)
+
+    if (isHome) {
+        return (
+            <div className="dark-landing">
+                <SiteHeader />
+                <main>
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                    </Routes>
+                </main>
+            </div>
+        )
+    }
 
     return (
         <div className="relative flex min-h-screen flex-col">
             <SiteHeader />
             <main className="flex-1">
                 <Routes>
-                    <Route path="/" element={<HomePage onInquire={() => setIsInquireOpen(true)} />} />
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/solutions" element={<SolutionsPage />} />
                     <Route path="/work" element={<WorkPage />} />
