@@ -253,21 +253,6 @@ function WorkCardThumbnail({
     )
 }
 
-function SideSocialRail() {
-    return (
-        <aside className="fixed left-8 top-[28%] z-20 hidden lg:flex lg:flex-col lg:items-center lg:gap-5">
-            <span className="rotate-180 text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-400 [writing-mode:vertical-lr]">
-                Follow Us
-            </span>
-            <span className="h-14 w-px bg-sage-300" />
-            <div className="flex flex-col items-center gap-4 text-slate-500">
-                <a href="https://www.facebook.com/profile.php?id=61565257933229" target="_blank" rel="noreferrer" aria-label="Facebook" className="hover:text-sage-700"><Facebook size={26} /></a>
-                <a href="https://www.linkedin.com/company/avillanosa-information-technology-solutions" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-sage-700"><Linkedin size={26} /></a>
-                <a href="https://github.com/AvillanosaITSolutions" target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:text-sage-700"><Github size={26} /></a>
-            </div>
-        </aside>
-    )
-}
 
 function SiteHeader() {
     const location = useLocation()
@@ -834,99 +819,6 @@ function DarkFooterSection() {
                 </p>
             </div>
         </footer>
-    )
-}
-
-function WorkSection() {
-    const { t } = useTranslation()
-
-    return (
-        <FadeInOnView>
-            <section className="site-shell mt-28">
-                <div className="mb-10 flex items-center gap-4">
-                    <span className="h-px w-14 bg-sage-500" />
-                    <h2 className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-700">{t('home.work.title')}</h2>
-                </div>
-
-                <div className="grid gap-x-5 gap-y-10 md:grid-cols-3">
-                    {projectItems.map((item, index) => (
-                        <motion.article
-                            key={item.name}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.3 }}
-                            transition={{ duration: 0.45, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                        >
-                            <WorkCardThumbnail item={item} />
-                            <h3 className="mt-3 text-[14px] font-semibold text-slate-800">
-                                {item.url ? (
-                                    <a href={item.url} target="_blank" rel="noreferrer" className="hover:text-sage-700 hover:underline">
-                                        {item.name}
-                                    </a>
-                                ) : (
-                                    item.name
-                                )}
-                            </h3>
-                            {item.isCurrent && (
-                                <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.16em] text-sage-700">Current Project</p>
-                            )}
-                            <p className="mt-1 text-xs text-slate-500">{item.category}</p>
-                            <p className="mt-2 text-xs leading-6 text-slate-500">{item.summary}</p>
-
-                            <div className="mt-4 flex flex-wrap gap-2">
-                                {item.url && (
-                                    <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex">
-                                        <Button color="light" size="xs" className="rounded-none border border-slate-200 !bg-white !text-slate-700">
-                                            <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
-                                                <ArrowRightAlt size={14} />
-                                                Website
-                                            </span>
-                                        </Button>
-                                    </a>
-                                )}
-                                <Link to={`/work/${item.slug}`} className="inline-flex">
-                                    <Button color="light" size="xs" className="rounded-none border border-slate-200 !bg-white !text-slate-700">
-                                        <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
-                                            <ArrowRightAlt size={14} />
-                                            Details
-                                        </span>
-                                    </Button>
-                                </Link>
-                            </div>
-                        </motion.article>
-                    ))}
-                </div>
-            </section>
-        </FadeInOnView>
-    )
-}
-
-function ClientsWordsSection() {
-    const { t } = useTranslation()
-    const testimonials = t('home.clients.items', { returnObjects: true }) as Array<{ quote: string; author: string }>
-
-    return (
-        <FadeInOnView>
-            <section className="site-shell mt-24">
-                <h2 className="text-4xl font-bold tracking-tight text-slate-900">{t('home.clients.title')}</h2>
-
-                <div className="mt-10 grid gap-10 md:grid-cols-2">
-                    {testimonials.map((item, index) => (
-                        <motion.article
-                            key={`${item.author}-${index}`}
-                            className="rounded-sm border border-slate-200 bg-white p-8"
-                            initial={{ opacity: 0, y: 22 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.3 }}
-                            transition={{ duration: 0.45, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                        >
-                            <p className="text-sm leading-7 text-slate-600">{item.quote}</p>
-                            <p className="mt-6 text-sm font-semibold text-slate-900">{item.author}</p>
-                        </motion.article>
-                    ))}
-                </div>
-            </section>
-        </FadeInOnView>
     )
 }
 
