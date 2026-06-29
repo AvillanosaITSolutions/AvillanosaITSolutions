@@ -1276,8 +1276,6 @@ function ContactPage() {
         company: '', // honeypot — should stay empty
     })
 
-    const apiUrl = import.meta.env.VITE_CONTACT_API_URL as string | undefined
-
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target
         setFormData((prev) => ({ ...prev, [name]: value }))
@@ -1291,28 +1289,19 @@ function ContactPage() {
         setStatusText('')
         setStatusType('idle')
 
-        const payload = {
-            name: formData.name.trim(),
-            email: formData.email.trim(),
-            contactNo: formData.contactNo.trim(),
-            budget: formData.budget.trim(),
-            message: formData.message.trim(),
-            company: formData.company.trim(),
-        }
-
-        if (!payload.name || !payload.email || !payload.contactNo || !payload.budget || !payload.message) {
+        if (!formData.name.trim() || !formData.email.trim() || !formData.contactNo.trim() || !formData.budget.trim() || !formData.message.trim()) {
             setStatusType('error')
             setStatusText('Please complete all fields before submitting.')
             return
         }
 
-        if (!EMAIL_REGEX.test(payload.email)) {
+        if (!EMAIL_REGEX.test(formData.email.trim())) {
             setStatusType('error')
             setStatusText('Please enter a valid email address.')
             return
         }
 
-        if (!PHONE_REGEX.test(payload.contactNo)) {
+        if (!PHONE_REGEX.test(formData.contactNo.trim())) {
             setStatusType('error')
             setStatusText('Please enter a valid PH mobile number (e.g., 09452873791).')
             return
@@ -1320,55 +1309,36 @@ function ContactPage() {
 
         setIsSubmitting(true)
 
-        // Preferred path: send through the Nodemailer backend when configured.
-        if (apiUrl) {
-            try {
-                const response = await fetch(`${apiUrl.replace(/\/$/, '')}/api/contact`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload),
-                })
-                const result = await response.json().catch(() => ({}))
+        try {
+            const data = new FormData(e.currentTarget)
+            data.append('access_key', import.meta.env.VITE_WEB3FORMS_KEY)
+            data.append('subject', `New Inquiry from ${formData.name.trim()}`)
+            data.append('from_name', 'Avillanosa IT Solutions')
+            data.delete('company')
 
-                if (!response.ok || !result.ok) {
-                    throw new Error(result.error || 'Request failed')
-                }
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: data,
+            })
+            const result = await response.json()
 
+            if (result.success) {
                 setStatusType('success')
                 setStatusText('Thanks! Your message has been sent. We will get back to you shortly.')
                 resetForm()
-            } catch (error) {
-                setStatusType('error')
-                setStatusText(
-                    error instanceof Error && error.message !== 'Request failed'
-                        ? error.message
-                        : 'Something went wrong while sending. Please try again or email hello@itsavillanosa.com.',
-                )
-            } finally {
-                setIsSubmitting(false)
+            } else {
+                throw new Error(result.message || 'Request failed')
             }
-            return
+        } catch (error) {
+            setStatusType('error')
+            setStatusText(
+                error instanceof Error && error.message !== 'Request failed'
+                    ? error.message
+                    : 'Something went wrong while sending. Please try again or email hello@itsavillanosa.com.',
+            )
+        } finally {
+            setIsSubmitting(false)
         }
-
-        // Fallback when no backend is configured: open the visitor's mail app.
-        const subject = `New Inquiry from ${payload.name}`
-        const body = [
-            `Name: ${payload.name}`,
-            `Email: ${payload.email}`,
-            `Contact No.: ${payload.contactNo}`,
-            `Budget: ${payload.budget}`,
-            '',
-            'Message:',
-            payload.message,
-        ].join('\n')
-
-        const mailtoUrl = `mailto:hello@itsavillanosa.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-        window.location.href = mailtoUrl
-
-        setStatusType('success')
-        setStatusText('Your email app is opening with your inquiry details.')
-        resetForm()
-        setIsSubmitting(false)
     }
 
     return (
